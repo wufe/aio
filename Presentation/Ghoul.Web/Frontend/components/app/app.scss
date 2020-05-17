@@ -1,0 +1,7 @@
+@import "~/style/index";
+
+.app__component {
+    width: 100%;
+    @include container;
+    padding: 20px 0;
+}

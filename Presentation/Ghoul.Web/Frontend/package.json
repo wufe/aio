@@ -1,0 +1,24 @@
+{
+  "name": "@wufe/ghoul.web.frontend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react-dom": "^16.9.8",
+    "@types/react": "^16.9.35",
+    "@wufe/neui": "^1.0.1",
+    "nord": "^0.2.1",
+    "parcel": "^1.12.4",
+    "react-dom": "^16.13.1",
+    "react": "^16.13.1",
+    "redux": "^4.0.5",
+    "sass": "^1.26.5",
+    "typescript": "^3.9.2"
+  },
+  "scripts": {
+    "dev": "parcel watch -t browser -d dist --no-cache index.html"
+  },
+  "dependencies": {
+    "components": "^0.1.0"
+  }
+}

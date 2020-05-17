@@ -1,0 +1,11 @@
+@import "vendors";
+
+$breakpoints: (
+  small : 420px,
+  medium: 800px,
+  large : 1024px
+);
+
+$primary-color: $light-primary-color;
+$accent-color: $nord5;
+$action-color: saturate(darken($nord4, 15%), 10%);
