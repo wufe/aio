@@ -1,0 +1,87 @@
+@import "~/style/index";
+
+.build-creation__modal {
+    padding: 5px 20px;
+    min-height: 200px;
+    border-radius: 8px;
+    @include flat(darken($primary-color, 0%));
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-width: 500px;
+
+    > .__header {
+        h3 {
+            font-weight: 400;
+        }
+    }
+
+    > form {
+        width: 100%;
+        padding: 20px;
+
+        label {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: stretch;
+
+            > span {
+                z-index: 1;
+                font-size: .8em;
+                @include uppercase();
+            }
+
+            > * {
+                margin: 6px;
+            }
+
+            &:not(:last-child) {
+                margin-bottom: 10px;
+            }
+        }
+
+        input[type=text] {
+            // #region Neui input text
+            border-radius: 8px;
+            color: get-text-color($primary-color);
+            background: concave-background(lighten($primary-color, 3%));
+            box-shadow: concave-shadow($primary-color);
+            // #endregion
+
+            border: none;
+            font-size: .9em;
+            padding: 10px 23px;
+            outline: none;
+
+            &[disabled] {
+                background: flat-background($primary-color);
+                opacity: .7;
+            }
+        }
+
+        > .__actions {
+            margin: 50px 0 10px 0;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            
+            > button {
+                @include neui-button();
+                margin: 5px;
+                font-family: inherit;
+                padding: 8px 20px;
+
+                &.--success {
+                    border: 2px solid $nord14;
+                }
+
+                &.--danger {
+                    border: 2px solid $nord11;
+                }
+            }
+        }
+    }
+}

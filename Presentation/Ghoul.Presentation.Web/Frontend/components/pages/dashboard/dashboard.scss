@@ -1,0 +1,14 @@
+@import "~/style/index";
+
+.dashboard__page {
+    .__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        h2 {
+            font-family: inherit;
+            font-weight: 300;
+        }
+    }
+}

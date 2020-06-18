@@ -9,16 +9,17 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/Presentation/Ghoul.Web/bin/Debug/netcoreapp3.1/Ghoul.Web.dll",
+            "program": "${workspaceFolder}/Presentation/Ghoul.Presentation.Web/bin/Debug/netcoreapp3.1/Ghoul.Presentation.Web.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/Presentation/Ghoul.Web",
+            "cwd": "${workspaceFolder}/Presentation/Ghoul.Presentation.Web",
             "stopAtEntry": false,
             // "serverReadyAction": {
             //     "action": "openExternally",
             //     "pattern": "^\\s*Now listening on:\\s+(https?://\\S+)"
             // },
             "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "DEBUG": "false" /* F**king variable messing up babel logs */
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
