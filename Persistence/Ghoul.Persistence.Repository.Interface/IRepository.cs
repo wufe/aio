@@ -8,6 +8,6 @@ namespace Ghoul.Persistence.Repository.Interface {
         void Insert(T entity);
         void Update(T entity);
         void Remove(T entity);
-        void Remove(Guid ID);
+        void Remove(string ID);
     }
 }

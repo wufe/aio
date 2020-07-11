@@ -1,4 +1,8 @@
 using System.IO;
+using Ghoul.Application.Model;
+using Ghoul.Application.Model.Queries;
+using Ghoul.Application.Service.Handlers.Queries;
+using Ghoul.Persistence.Configuration.DI;
 using Ghoul.Web.Configuration;
 using Ghoul.Web.Extensions;
 using MediatR;
@@ -24,15 +28,17 @@ namespace Ghoul.Web
         {
             services.AddControllersWithViews();
 
-            #region Infrastructure
+            #region Persistence
                 services.AddDatabaseSettings(Configuration);
+                services.AddDBContext();
+                services.AddRepositories();
             #endregion
 
             #region Application
                 services.AddApplicationServices();
 
                 // CQRS
-                services.AddMediatR(typeof(Startup));
+                services.AddMediatR(typeof(GetAllBuildsQuery), typeof(GetAllBuildsQueryHandler));
             #endregion
 
             #region Domain

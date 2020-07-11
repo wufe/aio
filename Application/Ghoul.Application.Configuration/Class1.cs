@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ghoul.Persistence.Model
+namespace Ghoul.Application.Configuration
 {
     public class Class1
     {

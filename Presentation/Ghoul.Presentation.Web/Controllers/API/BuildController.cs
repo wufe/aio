@@ -1,4 +1,9 @@
+using System.Diagnostics;
+using System.Threading.Tasks;
+using Ghoul.Application.Model.Commands;
+using Ghoul.Application.Model.Queries;
 using Ghoul.Presentation.Model.Build;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ghoul.Web.Controllers {
@@ -7,12 +12,18 @@ namespace Ghoul.Web.Controllers {
     [Route("api/[controller]")]
     public class BuildController : ControllerBase
     {
+        private readonly IMediator _mediator;
 
-        [HttpGet("/")]
-        public IActionResult Index()
+        public BuildController(IMediator mediator)
         {
-            // Dispatch a "query" to get all the builds available
-            return Ok();
+            _mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<string[]> Index()
+        {
+            var id = await _mediator.Send(new CreateBuildCommand("sed"));
+            return await _mediator.Send(new GetAllBuildsQuery());
         }
 
         [HttpPost]

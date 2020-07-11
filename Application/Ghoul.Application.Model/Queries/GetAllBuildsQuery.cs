@@ -1,5 +1,8 @@
+using System.Collections.Generic;
+using MediatR;
+
 namespace Ghoul.Application.Model.Queries {
-    public class GetAllBuildsQuery {
+    public class GetAllBuildsQuery : IRequest<string[]> {
         
     }
 }

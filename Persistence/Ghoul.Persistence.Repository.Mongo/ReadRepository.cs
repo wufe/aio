@@ -18,7 +18,7 @@ namespace Ghoul.Persistence.Repository.Mongo
             _context = context;
         }
 
-        public T Find(Guid ID) =>
+        public T Find(string ID) =>
             _context.GetCollection<T>()
                 .AsQueryable()
                 .FirstOrDefault(x => x.ID == ID);

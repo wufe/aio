@@ -10,10 +10,6 @@ export const useBuildCreation = () => {
     return {
         createNewBuild: (build: Partial<TBuild>) => new Promise((resolve, reject) => {
             dispatch({ type: AppAction.SET_LOADING, payload: true });
-            // setTimeout(() => {
-            //     dispatch({ type: AppAction.SET_LOADING, payload: false });
-            //     resolve();
-            // }, 4000);
             Axios.post(`/api/build/`, build)
                 .then(resolve)
                 .catch(reject)

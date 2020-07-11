@@ -34,7 +34,7 @@ namespace Ghoul.Persistence.Repository.Mongo
                 .DeleteOne(Builders<T>.Filter.Eq(x => x.ID, entity.ID));
         }
 
-        public void Remove(Guid ID)
+        public void Remove(string ID)
         {
             _context.GetCollection<T>()
                 .DeleteOne(Builders<T>.Filter.Eq(x => x.ID, ID));

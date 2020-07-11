@@ -8,7 +8,7 @@ namespace Ghoul.Persistence.Repository.Interface
     public interface IReadRepository<T>
         where T: IPrimaryKeyEntity
     {
-        T Find(Guid ID);
+        T Find(string ID);
         IQueryable<T> FindAll(Expression<Func<T, bool>> selector);
         IQueryable<T> FindAll();
     }

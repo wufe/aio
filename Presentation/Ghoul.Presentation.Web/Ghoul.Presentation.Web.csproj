@@ -13,7 +13,7 @@
     <PackageReference Include="MediatR" Version="8.0.2" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.4" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +28,8 @@
     <ProjectReference Include="..\..\Application\Ghoul.Application.Service\Ghoul.Application.Service.csproj" />
     <ProjectReference Include="..\..\Application\Ghoul.Application.Model\Ghoul.Application.Model.csproj" />
     <ProjectReference Include="..\..\Persistence\Ghoul.Persistence.Database.Mongo\Ghoul.Persistence.Database.Mongo.csproj" />
+    <ProjectReference Include="..\..\Application\Ghoul.Application.Configuration\Ghoul.Application.Configuration.csproj" />
+    <ProjectReference Include="..\..\Persistence\Ghoul.Persistence.Configuration\Ghoul.Persistence.Configuration.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

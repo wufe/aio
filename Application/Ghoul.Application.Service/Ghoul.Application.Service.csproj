@@ -2,6 +2,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\Ghoul.Domain.Entity\Ghoul.Domain.Entity.csproj" />
+    <ProjectReference Include="..\Ghoul.Application.Model\Ghoul.Application.Model.csproj" />
+    <ProjectReference Include="..\..\Persistence\Ghoul.Persistence.Repository.Interface\Ghoul.Persistence.Repository.Interface.csproj" />
+    <ProjectReference Include="..\..\Persistence\Ghoul.Persistence.Model\Ghoul.Persistence.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="mediatr" Version="8.0.2" />
   </ItemGroup>
 
   <PropertyGroup>
