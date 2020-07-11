@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.10.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ghoul.Persistence.Repository.Interface\Ghoul.Persistence.Repository.Interface.csproj" />
+    <ProjectReference Include="..\Ghoul.Persistence.Model\Ghoul.Persistence.Model.csproj" />
+    <ProjectReference Include="..\Ghoul.Persistence.Database.Mongo\Ghoul.Persistence.Database.Mongo.csproj" />
+  </ItemGroup>
+
+</Project>

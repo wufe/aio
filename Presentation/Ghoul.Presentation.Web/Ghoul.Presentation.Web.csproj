@@ -10,6 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="8.0.2" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.4" />
   </ItemGroup>
@@ -22,11 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\Ghoul.Database.Mongo\Ghoul.Database.Mongo.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\Ghoul.Infrastructure.Configuration\Ghoul.Infrastructure.Configuration.csproj" />
     <ProjectReference Include="..\Ghoul.Presentation.Model\Ghoul.Presentation.Model.csproj" />
-    <ProjectReference Include="..\..\Application\Ghoul.Application\Ghoul.Application.csproj" />
+    <ProjectReference Include="..\..\Application\Ghoul.Application.Service\Ghoul.Application.Service.csproj" />
     <ProjectReference Include="..\..\Application\Ghoul.Application.Model\Ghoul.Application.Model.csproj" />
+    <ProjectReference Include="..\..\Persistence\Ghoul.Persistence.Database.Mongo\Ghoul.Persistence.Database.Mongo.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

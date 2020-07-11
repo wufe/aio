@@ -1,13 +1,9 @@
-using System;
 using System.IO;
-using Ghoul.Application.Configuration;
 using Ghoul.Web.Configuration;
 using Ghoul.Web.Extensions;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,12 +29,14 @@ namespace Ghoul.Web
             #endregion
 
             #region Application
-                services.AddPresentationModels();
                 services.AddApplicationServices();
+
+                // CQRS
+                services.AddMediatR(typeof(Startup));
             #endregion
 
             #region Domain
-                services.AddDomainServices();
+                // services.AddDomainServices();
             #endregion
 
             // In production, the React files will be served from this directory

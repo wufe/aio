@@ -8,9 +8,11 @@ namespace Ghoul.Web.Controllers {
     public class BuildController : ControllerBase
     {
 
-        [HttpGet]
-        public IActionResult Index() {
-            return Ok("Oke");
+        [HttpGet("/")]
+        public IActionResult Index()
+        {
+            // Dispatch a "query" to get all the builds available
+            return Ok();
         }
 
         [HttpPost]

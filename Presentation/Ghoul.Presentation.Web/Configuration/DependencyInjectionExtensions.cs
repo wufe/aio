@@ -1,9 +1,5 @@
-using Ghoul.Application.Model.Interface;
-using Ghoul.Application.Service;
-using Ghoul.Application.Service.Interface;
-using Ghoul.Infrastructure.Configuration;
-using Ghoul.Presentation.Model.Build;
-using Ghould.Database.Mongo;
+using Ghoul.Persistence.Database.Mongo.Configuration;
+using Ghould.Persistence.Database.Mongo.Configuration.Interface;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -20,14 +16,8 @@ namespace Ghoul.Web.Configuration {
                     serviceProvider.GetRequiredService<IOptions<DatabaseSettings>>().Value);
         }
 
-        public static void AddPresentationModels(this IServiceCollection services)
-        {
-            services.AddScoped<ICreateBuildModel, CreateBuildInputModel>();
-        }
-
         public static void AddApplicationServices(this IServiceCollection services)
         {
-            services.AddScoped<IBuildApplicationService, BuildApplicationService>();
         }
 
     }
