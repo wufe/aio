@@ -31,12 +31,6 @@ namespace Ghoul.Web.Controllers {
             return await _mediator.Send(new GetAllBuildsQuery());
         }
 
-        [HttpGet("add/{name}")]
-        public async Task<string> Add(string name)
-        {
-            return await _mediator.Send(new CreateBuildCommand(name));
-        }
-
         [HttpPost]
         public async Task<IActionResult> CreateBuild(CreateBuildInputModel buildInputModel)
         {
