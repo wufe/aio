@@ -45,7 +45,7 @@ const BuildCreationModal = () => {
             <form onSubmit={e => save(e)}>
                 <label htmlFor="name">
                     <span>Name *</span>
-                    <input type="text" name="name" id="name" autoFocus disabled={!formEnabled} placeholder="My awesome build"/>
+                    <input type="text" onChange={e => setName(e.target.value)} value={name} name="name" id="name" autoFocus disabled={!formEnabled} placeholder="My awesome build"/>
                 </label>
                 <label htmlFor="repositoryURL">
                     <span>Repository</span>

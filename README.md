@@ -10,7 +10,9 @@ Small continous integration software.
 
 ## Architecture
 
-The architecture consists of a loose blending of DDD and Clean Architecture.
+> **Domain driven clean architecture**  
+
+Consists of a loose blending of DDD and Clean Architecture.
 
 The core functionality resides in the **domain layer**.  
 It is wrapped and accessed by an **application layer** which uses the **persistence layer** together with an **infrastructure layer** to link contents for the **presentation layer**, the one directly linked with the UI.

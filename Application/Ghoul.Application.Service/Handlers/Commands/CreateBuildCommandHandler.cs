@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -26,6 +28,11 @@ namespace Ghoul.Application.Service.Handlers.Commands {
 
         public Task<string> Handle(CreateBuildCommand request, CancellationToken cancellationToken)
         {
+            // Validate
+            var buildAlreadyExists = _buildRepository.FindAll(x => x.Name.ToLower() == request.Name.ToLower()).Any();
+            if (buildAlreadyExists)
+                throw new ArgumentException($"Build named \"{request.Name}\" already exists.");
+
             // Create domain entity
             var buildDomainEntity = _buildService.CreateBuild(request.Name);
 

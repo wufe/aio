@@ -1,18 +1,20 @@
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using AutoMapper;
 using Ghoul.Application.Model;
 using Ghoul.Application.Model.Commands;
 using Ghoul.Application.Model.Queries;
+using Ghoul.Presentation.Model;
 using Ghoul.Presentation.Model.Build;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Ghoul.Web.Controllers {
+namespace Ghoul.Presentation.Web.Controllers.API {
 
     [ApiController]
     [Route("api/[controller]")]
-    public class BuildController : ControllerBase
+    public class BuildController : BaseAPIController
     {
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
@@ -35,9 +37,12 @@ namespace Ghoul.Web.Controllers {
         public async Task<IActionResult> CreateBuild(CreateBuildInputModel buildInputModel)
         {
             if (TryValidateModel(buildInputModel)) {
-
-                var id = await _mediator.Send(_mapper.Map<CreateBuildCommand>(buildInputModel));
-                return Ok(id);
+                try {
+                    var id = await _mediator.Send(_mapper.Map<CreateBuildCommand>(buildInputModel));
+                    return Ok(id);
+                } catch (Exception exception) {
+                    return BadRequest(BadRequestOutputModel.FromException(exception));
+                }
             }
             return BadRequest(ModelState);
         }
