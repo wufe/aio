@@ -5,12 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Persistence\Ghoul.Persistence.Repository.Interface\Ghoul.Persistence.Repository.Interface.csproj" />
     <ProjectReference Include="..\..\Persistence\Ghoul.Persistence.Repository.Mongo\Ghoul.Persistence.Repository.Mongo.csproj" />
+    <ProjectReference Include="..\..\Domain\Ghoul.Domain.Entity\Ghoul.Domain.Entity.csproj" />
+    <ProjectReference Include="..\Ghoul.Application.Model\Ghoul.Application.Model.csproj" />
   </ItemGroup>
 
 </Project>

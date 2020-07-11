@@ -16,9 +16,5 @@ namespace Ghoul.Web.Configuration {
                     serviceProvider.GetRequiredService<IOptions<DatabaseSettings>>().Value);
         }
 
-        public static void AddApplicationServices(this IServiceCollection services)
-        {
-        }
-
     }
 }

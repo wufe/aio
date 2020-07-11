@@ -30,6 +30,7 @@
     <ProjectReference Include="..\..\Persistence\Ghoul.Persistence.Database.Mongo\Ghoul.Persistence.Database.Mongo.csproj" />
     <ProjectReference Include="..\..\Application\Ghoul.Application.Configuration\Ghoul.Application.Configuration.csproj" />
     <ProjectReference Include="..\..\Persistence\Ghoul.Persistence.Configuration\Ghoul.Persistence.Configuration.csproj" />
+    <ProjectReference Include="..\..\Domain\Ghoul.Domain.Configuration\Ghoul.Domain.Configuration.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

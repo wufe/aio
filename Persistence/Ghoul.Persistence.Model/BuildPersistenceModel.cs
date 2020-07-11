@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Ghoul.Persistence.Model
 {
-    public class Build : IPrimaryKeyEntity
+    public class BuildPersistenceModel : IPrimaryKeyEntity
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

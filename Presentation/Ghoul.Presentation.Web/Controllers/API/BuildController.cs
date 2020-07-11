@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Ghoul.Application.Model;
 using Ghoul.Application.Model.Commands;
 using Ghoul.Application.Model.Queries;
 using Ghoul.Presentation.Model.Build;
@@ -20,10 +21,15 @@ namespace Ghoul.Web.Controllers {
         }
 
         [HttpGet]
-        public async Task<string[]> Index()
+        public async Task<BuildApplicationModel[]> Index()
         {
-            var id = await _mediator.Send(new CreateBuildCommand("sed"));
             return await _mediator.Send(new GetAllBuildsQuery());
+        }
+
+        [HttpGet("add/{name}")]
+        public async Task<string> Add(string name)
+        {
+            return await _mediator.Send(new CreateBuildCommand(name));
         }
 
         [HttpPost]

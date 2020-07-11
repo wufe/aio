@@ -27,7 +27,7 @@ Consists of:
 For simplicity the concepts of "aggregate" will not be introduced in the first instance.  
 It might be a later improvement while doing another iteration.
 
-### Application layers
+### Application layer
 
 Wraps the communication with the domain layer, accessing *directly to domain entities/services* while executing commands and *directly to persistence models/repositories* while executing queries.
 

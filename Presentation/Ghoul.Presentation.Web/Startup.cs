@@ -1,7 +1,9 @@
 using System.IO;
+using Ghoul.Application.Configuration.DI;
 using Ghoul.Application.Model;
 using Ghoul.Application.Model.Queries;
 using Ghoul.Application.Service.Handlers.Queries;
+using Ghoul.Domain.Configuration.DI;
 using Ghoul.Persistence.Configuration.DI;
 using Ghoul.Web.Configuration;
 using Ghoul.Web.Extensions;
@@ -35,14 +37,12 @@ namespace Ghoul.Web
             #endregion
 
             #region Application
-                services.AddApplicationServices();
-
-                // CQRS
+                services.AddDomainPersistenceMappings();
                 services.AddMediatR(typeof(GetAllBuildsQuery), typeof(GetAllBuildsQueryHandler));
             #endregion
 
             #region Domain
-                // services.AddDomainServices();
+                services.AddDomainServices();
             #endregion
 
             // In production, the React files will be served from this directory
