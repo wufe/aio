@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using Ghould.Database.Mongo;
-using Ghould.Persistence.Database.Mongo.Configuration.Interface;
+using Ghoul.Persistence.Database.Mongo.Configuration.Interface;
 
 namespace Ghoul.Persistence.Database.Mongo.Configuration {
 

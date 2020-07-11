@@ -1,7 +1,7 @@
 using System;
 using Ghoul.Persistence.Model.Interface;
 using Ghoul.Persistence.Repository.Interface;
-using Ghould.Database.Mongo;
+using Ghoul.Persistence.Database.Mongo;
 using MongoDB.Bson;
 using MongoDB.Driver;
 

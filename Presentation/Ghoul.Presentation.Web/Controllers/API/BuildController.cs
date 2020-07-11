@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
+using AutoMapper;
 using Ghoul.Application.Model;
 using Ghoul.Application.Model.Commands;
 using Ghoul.Application.Model.Queries;
@@ -13,10 +14,14 @@ namespace Ghoul.Web.Controllers {
     [Route("api/[controller]")]
     public class BuildController : ControllerBase
     {
+        private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public BuildController(IMediator mediator)
+        public BuildController(
+            IMapper mapper,
+            IMediator mediator)
         {
+            _mapper = mapper;
             _mediator = mediator;
         }
 
@@ -33,11 +38,12 @@ namespace Ghoul.Web.Controllers {
         }
 
         [HttpPost]
-        public IActionResult CreateBuild(CreateBuildInputModel buildModel)
+        public async Task<IActionResult> CreateBuild(CreateBuildInputModel buildInputModel)
         {
-            if (TryValidateModel(buildModel)) {
+            if (TryValidateModel(buildInputModel)) {
 
-                return Ok();
+                var id = await _mediator.Send(_mapper.Map<CreateBuildCommand>(buildInputModel));
+                return Ok(id);
             }
             return BadRequest(ModelState);
         }

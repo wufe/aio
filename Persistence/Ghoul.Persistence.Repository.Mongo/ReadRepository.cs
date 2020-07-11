@@ -3,7 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Ghoul.Persistence.Model.Interface;
 using Ghoul.Persistence.Repository.Interface;
-using Ghould.Database.Mongo;
+using Ghoul.Persistence.Database.Mongo;
 using MongoDB.Driver;
 
 namespace Ghoul.Persistence.Repository.Mongo

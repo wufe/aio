@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Ghould.Persistence.Database.Mongo.Configuration.Interface {
+namespace Ghoul.Persistence.Database.Mongo.Configuration.Interface {
     public interface IDatabaseSettings {
         string ConnectionString { get; set; }
         string DatabaseName { get; set; }

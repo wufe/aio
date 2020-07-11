@@ -1,6 +1,6 @@
 using Ghoul.Persistence.Repository.Interface;
 using Ghoul.Persistence.Repository.Mongo;
-using Ghould.Database.Mongo;
+using Ghoul.Persistence.Database.Mongo;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Ghoul.Persistence.Configuration.DI {

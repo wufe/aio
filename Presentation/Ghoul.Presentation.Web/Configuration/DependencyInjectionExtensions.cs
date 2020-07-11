@@ -1,5 +1,5 @@
 using Ghoul.Persistence.Database.Mongo.Configuration;
-using Ghould.Persistence.Database.Mongo.Configuration.Interface;
+using Ghoul.Persistence.Database.Mongo.Configuration.Interface;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;

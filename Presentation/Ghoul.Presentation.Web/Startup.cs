@@ -5,8 +5,9 @@ using Ghoul.Application.Model.Queries;
 using Ghoul.Application.Service.Handlers.Queries;
 using Ghoul.Domain.Configuration.DI;
 using Ghoul.Persistence.Configuration.DI;
+using Ghoul.Presentation.Web.Configuration.DI;
 using Ghoul.Web.Configuration;
-using Ghoul.Web.Extensions;
+using Ghoul.Web.Middleware;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,17 +29,20 @@ namespace Ghoul.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region Presentation
             services.AddControllersWithViews();
-
-            #region Persistence
-                services.AddDatabaseSettings(Configuration);
-                services.AddDBContext();
-                services.AddRepositories();
+            services.AddPresentationMappings();
             #endregion
 
             #region Application
-                services.AddDomainPersistenceMappings();
-                services.AddMediatR(typeof(GetAllBuildsQuery), typeof(GetAllBuildsQueryHandler));
+            services.AddApplicationMappings();
+            services.AddMediatR(typeof(GetAllBuildsQuery), typeof(GetAllBuildsQueryHandler));
+            #endregion
+
+            #region Persistence
+            services.AddDatabaseSettings(Configuration);
+                services.AddDBContext();
+                services.AddRepositories();
             #endregion
 
             #region Domain

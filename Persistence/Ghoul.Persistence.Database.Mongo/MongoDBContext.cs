@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
-using Ghould.Persistence.Database.Mongo.Configuration.Interface;
+using Ghoul.Persistence.Database.Mongo.Configuration.Interface;
 using MongoDB.Driver;
 
-namespace Ghould.Database.Mongo {
+namespace Ghoul.Persistence.Database.Mongo {
     public class MongoDBContext {
         private readonly IDatabaseSettings _databaseSettings;
         private readonly IMongoDatabase _database;

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.SpaServices;
 using System.Diagnostics;
 
-namespace Ghoul.Web.Extensions
+namespace Ghoul.Web.Middleware
 {
     public static class GenericSpaExtensions {
         public static void UseYarn(this ISpaBuilder spaBuilder, string directory, string script = "dev") {

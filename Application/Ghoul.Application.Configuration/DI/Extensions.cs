@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Ghoul.Application.Configuration.DI {
     public static class Extensions {
-        public static void AddDomainPersistenceMappings(this IServiceCollection services) {
+        public static void AddApplicationMappings(this IServiceCollection services) {
             services
                 .AddAutoMapper(cfg => {
                     cfg.AddProfile<DomainPersistenceMappingProfile>();
