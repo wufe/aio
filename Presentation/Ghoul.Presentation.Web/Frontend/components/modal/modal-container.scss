@@ -17,4 +17,22 @@
     &.--visible {
         display: flex;
     }
+
+    > .__modal {
+        @include small-up {
+            > * {
+                position: fixed;
+                bottom: 0;
+                right: 0;
+                left: 0;
+                top: 0;
+            }
+        }
+        @include large-up {
+            > * {
+                position: relative;
+                min-width: 500px;
+            }
+        }
+    }
 }

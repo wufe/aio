@@ -1,0 +1,29 @@
+@import "~/style/index";
+
+.build-row__component {
+    @extend %neui-box;
+    margin: 8px 0;
+    border-radius: 9px;
+    font-size: .95em;
+    letter-spacing: .01em;
+    width: 100%;
+    max-height: 60px;
+    transition: max-height ease-in .2s;
+    
+    overflow: hidden;
+    // padding: 10px 30px;
+
+    &:hover {
+        @include convex(lighten($accent-color, 90%));
+        border-radius: 9px;
+    }
+
+    &.--active {
+        @include pressed($primary-color);
+        border-radius: 9px;
+        max-height: 700px;
+        overflow: auto;
+    }
+
+    
+}

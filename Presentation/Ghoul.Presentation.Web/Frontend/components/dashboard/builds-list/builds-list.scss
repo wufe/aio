@@ -1,0 +1,13 @@
+@import "~/style/index";
+
+.builds-list__component {
+    > .__list {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding: 30px;
+        border-radius: 20px;
+        padding: 10px;
+    }
+}

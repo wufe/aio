@@ -6,7 +6,7 @@ namespace Ghoul.Domain.Service {
     {
         public BuildDomainEntity CreateBuild(string name)
         {
-            return BuildDomainEntity.Build(name);
+            return BuildDomainEntity.CreateNew(name);
         }
     }
 }

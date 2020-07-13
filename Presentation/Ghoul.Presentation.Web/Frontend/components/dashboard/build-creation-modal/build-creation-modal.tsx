@@ -3,6 +3,7 @@ import { Modal } from '~/components/modal/modal';
 import './build-creation-modal.scss';
 import { useBuildCreation } from './build-creation-hooks';
 import { useModal } from '~/components/modal/modal-hooks';
+import { useBuildsRetrieval } from '../builds-list/build-list-hook';
 
 type TForm = {
     [field: string]: {
@@ -16,25 +17,28 @@ const modalName = "@@BuildCreationModal@@";
 const BuildCreationModal = () => {
 
     const [name, setName] = React.useState("");
+    const [repositoryURL, setRepositoryURL] = React.useState("");
     const [formEnabled, setFormEnabled] = React.useState(true);
-    const { createNewBuild: saveBuild } = useBuildCreation();
-    const { hide } = useModal();
+    const { saveBuild } = useBuildCreation();
+    const { hide: hideModal } = useModal();
+    const { getAll } = useBuildsRetrieval();
 
     const save = async (e: React.FormEvent) => {
         e.preventDefault();
         setFormEnabled(false);
         try {
-            await saveBuild({
-                name: name
-            })
-        } catch (e) {}
+            await saveBuild({ name, repositoryURL });
+            getAll();
+            hideModal();
+        } catch (e) {
+            setFormEnabled(true);
+        }
         
-        setFormEnabled(true);
     };
 
     const cancel = (e: React.FormEvent) => {
         e.preventDefault();
-        hide();
+        hideModal();
     }
 
     return <Modal name={modalName}>
@@ -45,12 +49,23 @@ const BuildCreationModal = () => {
             <form onSubmit={e => save(e)}>
                 <label htmlFor="name">
                     <span>Name *</span>
-                    <input type="text" onChange={e => setName(e.target.value)} value={name} name="name" id="name" autoFocus disabled={!formEnabled} placeholder="My awesome build"/>
+                    <input type="text" name="name" id="name" autoFocus placeholder="My awesome build"
+                        disabled={!formEnabled}
+                        onChange={e => setName(e.target.value)}
+                        value={name} />
                 </label>
-                <label htmlFor="repositoryURL">
-                    <span>Repository</span>
-                    <input type="text" name="repositoryURL" id="repositoryURL" disabled={!formEnabled} placeholder="https://github.com/wufe/ghoul"/>
-                </label>
+                <div className="__section">
+                    <span className="__section-header">Repository settings</span>
+                    <span className="__section-note">(optional)</span>
+                    <label htmlFor="repositoryURL">
+                        <span>URL</span>
+                        <input type="text" name="repositoryURL" id="repositoryURL" placeholder="https://github.com/wufe/ghoul"
+                            disabled={!formEnabled}
+                            onChange={e => setRepositoryURL(e.target.value)}
+                            value={repositoryURL} />
+                    </label>
+                    
+                </div>
                 <div className="__actions">
                     <button className="--danger" disabled={!formEnabled} onClick={e => cancel(e)}>Cancel</button>
                     <button className="--success" disabled={!formEnabled}>Go ahead</button>

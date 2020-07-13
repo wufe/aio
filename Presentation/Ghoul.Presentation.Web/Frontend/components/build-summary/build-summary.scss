@@ -1,0 +1,221 @@
+@import "~/style/index";
+
+.build__component {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .__row {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: min-content;
+
+        > .__column {
+
+            padding: 10px 0;
+
+            &:first-child {
+                padding-left: 30px;
+            }
+
+            > .__column-header {
+                font-size: .8em;
+                text-transform: uppercase;
+                color: $nord3;
+                margin: 2px 0 3px 0;
+                z-index: 1;
+                font-weight: 400;
+            }
+
+            > .__column-content {
+                &.--success {
+                    color: darken($nord14, 25%);
+                    font-weight: 300;
+                    text-shadow: 0 0 5px rgba(white, .1);//rgba(darken($nord14, 10%), .4);
+                }
+            }
+        }
+    }
+
+    > .__header {
+        flex-grow: 0;
+        > .__row {
+            grid-template-columns: 3fr 1fr 2fr;
+            cursor: pointer;
+
+            .__column {
+
+                &.__actions-column {
+                    padding: 0;
+
+                    @include large-up {
+                        padding-right: 6px;
+                    }
+                }
+
+                .__actions-container {
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+                    height: 100%;
+
+                    .__action {
+                        border: none;
+                        background: none;
+                        cursor: pointer;
+                        user-select: none;
+                            -webkit-user-select: none;
+                            -moz-user-select: none;
+
+                        > * {
+                            z-index: 1;
+                        }
+                    }
+
+                    @include medium-down {
+                        .__action {
+                            @include neumorphistic-element($primary-color, 'flat', 1, 0);
+                            height: 100%;
+                            overflow: hidden;
+                            border-radius: 0;
+                            padding: 0 10px;
+                        }
+                    }
+
+                    @include large-up {
+                        .__action {
+                            margin: 0px 5px;
+
+                            @include neumorphistic-element($primary-color, 'flat', .5, .5em) {
+                                
+                                padding: .8em 1.7em;
+                                border: none;
+                                background: flat-background($primary-color);
+                                font-size: .9em;
+                                
+                                cursor: pointer;
+                                outline: none;
+                                white-space: nowrap;
+                            
+                                &:hover {
+                                    &:not([disabled]) {
+                                        @include neui-button-hover($primary-color);
+                                    }
+                                }
+                            
+                                &:active {
+                                    @include neui-button-active($primary-color);
+                                }
+
+                                &[disabled] {
+                                    opacity: .7;
+                                    cursor: initial;
+                                }
+                            };
+                        }
+                    }
+
+                    
+                }
+            }
+        }
+    }
+
+    > .__actions {
+        margin: 20px 0 0 0;
+
+        > .__row {
+            // grid-template-columns: 2fr 1fr;
+            // grid-template-rows: auto;
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+
+    > .__content {
+        padding: 0px 20px;
+        flex-grow: 1;
+        margin: 10px 0 10px 0;
+
+        > .__row {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto;
+            height: 100%;
+
+            @include large-up {
+                grid-template-columns: 2fr 1fr 5fr;
+            }
+
+            > .__column {
+                max-height: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+
+                > .__column-header {
+                    flex-grow: 0;
+                }
+
+                > .__column-content {
+                    flex-grow: 1;
+                    margin: 10px 0;
+                }
+            }
+        }
+
+        .__terminal-log {
+            height: 100%;
+            width: 100%;
+            @include neumorphistic-element($terminal-background-color, 'pressed', 1, 10px);
+            padding: 10px;
+        }
+
+        .__steps-container {
+            height: 100%;
+            max-height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            > .__step {
+                padding: 10px 20px;
+                position: relative;
+                font-size: .8em;
+                
+                &:not(:last-child) {
+                    margin-bottom: 5px;
+                }
+
+                &:not(.--active) {
+                    opacity: .7;
+                    z-index: 1;
+                }
+
+                &.--active {
+                    @include neumorphistic-element($primary-color, 'convex', 1, 3px);
+                    font-weight: 400;
+
+                    &::after, &::before {
+                        content: ' ';
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        width: 5px;
+                        background: $nord14;    
+                    }
+
+                    &::before {
+                        left: 0;
+                        border-radius: 3px 0 0 3px;
+                    }
+
+                    &::after {
+                        right: 0;
+                        border-radius: 0 3px 3px 0;
+                    }
+                }
+            }
+        }
+    }
+}

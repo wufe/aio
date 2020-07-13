@@ -9,7 +9,6 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    min-width: 500px;
 
     > .__header {
         h3 {
@@ -20,6 +19,27 @@
     > form {
         width: 100%;
         padding: 20px;
+
+        > .__section {
+            margin: 15px 0;
+            padding: 15px;
+            position: relative;
+            @include neumorphistic-element($primary-color, 'flat', 1, 5px);
+
+            > .__section-header {
+
+            }
+
+            > .__section-note {
+                display: inline-block;
+                position: absolute;
+                right: 8px;
+                top: 10px;
+                font-size: .7em;
+                text-transform: uppercase;
+                padding: 0 10px;
+            }
+        }
 
         label {
             display: flex;

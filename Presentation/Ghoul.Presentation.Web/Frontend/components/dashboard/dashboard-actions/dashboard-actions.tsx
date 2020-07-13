@@ -6,7 +6,7 @@ import { BuildCreationModal } from '../build-creation-modal/build-creation-modal
 export const DashboardActions = () => {
     const { show } = useModal();
 
-    return <div className="__actions-container">
+    return <div className="__dashboard-actions-container">
         <button onClick={() => show(BuildCreationModal.MODAL_NAME)}>New build</button>
         <>
             <BuildCreationModal />

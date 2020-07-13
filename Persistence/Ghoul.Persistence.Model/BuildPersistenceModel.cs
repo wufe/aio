@@ -11,5 +11,7 @@ namespace Ghoul.Persistence.Model
         [BsonRepresentation(BsonType.ObjectId)]
         public string ID { get; set; }
         public string Name { get; set; }
+        public DateTime CreatedAt { get; private set; }
+        public DateTime UpdatedAt { get; private set; }
     }
 }

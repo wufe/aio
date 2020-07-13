@@ -33,6 +33,15 @@ namespace Ghoul.Presentation.Web.Controllers.API {
             return await _mediator.Send(new GetAllBuildsQuery());
         }
 
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(string id) {
+            var build = await _mediator.Send(new GetBuildQuery(id));
+            if (build == null)
+                return NotFound();
+            return new JsonResult(build);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateBuild(CreateBuildInputModel buildInputModel)
         {

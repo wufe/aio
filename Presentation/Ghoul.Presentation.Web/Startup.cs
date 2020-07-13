@@ -41,13 +41,15 @@ namespace Ghoul.Web
 
             #region Persistence
             services.AddDatabaseSettings(Configuration);
-                services.AddDBContext();
-                services.AddRepositories();
+            services.AddDBContext();
+            services.AddRepositories();
             #endregion
 
             #region Domain
-                services.AddDomainServices();
+            services.AddDomainServices();
             #endregion
+
+            services.AddYarn();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

@@ -1,7 +1,7 @@
 @import "~/style/index";
 
-.__actions-container {
-    button {
+.__dashboard-actions-container {
+    > button {
         // @include neui-button($primary-color);
         @include ui-button();
         @include uppercase();

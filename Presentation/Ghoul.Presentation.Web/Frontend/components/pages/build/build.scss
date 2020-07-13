@@ -1,0 +1,52 @@
+@import "~/style/index";
+
+.build__page {
+    > .__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        h2 {
+            font-family: inherit;
+            font-weight: 100;
+
+            .__build-name {
+                font-weight: 200;
+            }
+        }
+    }
+
+    > .__content {
+        margin: 20px auto;
+        // @include neumorphistic-element($primary-color, 'pressed', .3, 15px);
+        min-height: 500px;
+        // overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        > .__build-info {
+            margin: 5px;
+            @include neumorphistic-element($primary-color, 'convex', 1, 15px);
+            min-height: 100px;
+        }
+
+        > .__build-steps {
+            flex-grow: 1;
+            display: flex;
+            
+
+            > .__steps-container {
+                // @include neumorphistic-element($primary-color, 'flat', .3, 15px);
+                min-width: 20%;
+                margin: 5px;
+            }
+
+            > .__step-instructions {
+                flex-grow: 1;
+                @include neumorphistic-element($primary-color, 'pressed', 1, 15px);
+                margin: 5px;
+            }
+        }
+    }
+}
