@@ -9,7 +9,9 @@ namespace Ghoul.Application.Configuration.DI {
         public static void AddApplicationMappings(this IServiceCollection services) {
             services
                 .AddAutoMapper(cfg => {
+                    // Da domain a persistence
                     cfg.AddProfile<DomainPersistenceMappingProfile>();
+                    // Da persistence a application
                     cfg.AddProfile<PersistenceApplicationMappingProfile>();
                 });
         }

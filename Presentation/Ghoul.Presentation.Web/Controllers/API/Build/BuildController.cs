@@ -31,6 +31,7 @@ namespace Ghoul.Presentation.Web.Controllers.API.Build {
         [HttpGet]
         public async Task<BaseBuildApplicationModel[]> Index()
         {
+            // Prendi in considerazione questa GetAllBuildsQuery
             return await _mediator.Send(new GetAllBuildsQuery());
         }
 
@@ -113,7 +114,16 @@ namespace Ghoul.Presentation.Web.Controllers.API.Build {
 
                     // Mediator, con i suoi COMMAND/QUERY (eventi) e i suoi HANDLER (event listeners) è configurato nello Startup.
 
-                    var id = await _mediator.Send(createBuildCommand);
+                    // Supponendo di non voler avere il mediator pattern con gli handler
+                    // si ha un application service (application layer)
+                    //
+                    // _buildApplicationService.CreateNewBuild(createBuild)
+                    //
+                    // Da notare che ho usato "buildInputModel", il modello PRESENTAZIONALE con le validazioni di aspnetcore
+                    // Quindi in realtà potrebbe essere un po' complicato
+                    // ( a livello di referenze tra progetti) 
+
+                    var id = await _mediator.Send(buildInputModel);
 
                     return Ok(id);
                 } catch (Exception exception) {

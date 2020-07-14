@@ -10,6 +10,8 @@ namespace Ghoul.Persistence.Repository.Interface
     {
         T Find(string ID);
         IQueryable<T> FindAll(Expression<Func<T, bool>> selector);
+
+        // Qui sta IQueryable
         IQueryable<T> FindAll();
     }
 }
