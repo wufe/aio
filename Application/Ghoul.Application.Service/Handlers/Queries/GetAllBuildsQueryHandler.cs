@@ -14,7 +14,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace Ghoul.Application.Service.Handlers.Queries {
-    public class GetAllBuildsQueryHandler : IRequestHandler<GetAllBuildsQuery, BuildBaseApplicationModel[]>
+    public class GetAllBuildsQueryHandler : IRequestHandler<GetAllBuildsQuery, BaseBuildApplicationModel[]>
     {
         private readonly ILogger<GetAllBuildsQueryHandler> _logger;
         private readonly IMapper _mapper;
@@ -30,11 +30,11 @@ namespace Ghoul.Application.Service.Handlers.Queries {
             _buildRepository = buildRepository;
         }
 
-        public Task<BuildBaseApplicationModel[]> Handle(GetAllBuildsQuery request, CancellationToken cancellationToken)
+        public Task<BaseBuildApplicationModel[]> Handle(GetAllBuildsQuery request, CancellationToken cancellationToken)
         {
             var buildApplicationModels = _buildRepository
                 .FindAll()
-                .ProjectTo<BuildBaseApplicationModel>(_mapper.ConfigurationProvider);
+                .ProjectTo<BaseBuildApplicationModel>(_mapper.ConfigurationProvider);
 
             _logger.LogTrace(buildApplicationModels.ToString());
 

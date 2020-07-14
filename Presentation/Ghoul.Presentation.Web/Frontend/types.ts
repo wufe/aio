@@ -20,4 +20,5 @@ export type TStep = {
     environmentVariables?: string[];
     workingDirectory?: string;
     fireAndForget?: boolean;
+    haltOnError?: boolean;
 }

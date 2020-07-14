@@ -1,4 +1,5 @@
 using Ghoul.Domain.Entity;
+using Ghoul.Domain.Entity.Build;
 using Ghoul.Domain.Service.Interface;
 
 namespace Ghoul.Domain.Service {

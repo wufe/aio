@@ -173,8 +173,8 @@ export const Build = () => {
                                 <input type="checkbox" name="" id="fireAndForget"/>
                             </label>
                             <label>
-                                <span>Stop build on error</span>
-                                <input type="checkbox" name="" id="stopOnError" defaultChecked={true} />
+                                <span>Halt build on error</span>
+                                <input type="checkbox" name="" id="haltOnError" defaultChecked={true} />
                             </label>
                         </div>
                     </div>

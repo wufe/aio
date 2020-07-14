@@ -7,5 +7,6 @@ namespace Ghoul.Presentation.Model.Build
     {
         [Required]
         public string Name { get; set; }
+        public string RepositoryURL { get; set; }
     }
 }

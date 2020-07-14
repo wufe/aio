@@ -3,7 +3,7 @@ using Ghoul.Application.Model.Build;
 using MediatR;
 
 namespace Ghoul.Application.Model.Queries {
-    public class GetAllBuildsQuery : IRequest<BuildBaseApplicationModel[]> {
+    public class GetAllBuildsQuery : IRequest<BaseBuildApplicationModel[]> {
         
     }
 }

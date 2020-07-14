@@ -35,6 +35,8 @@ namespace Ghoul.Application.Service.Handlers.Commands {
 
             // Create domain entity
             var buildDomainEntity = _buildService.CreateBuild(request.Name);
+            if (request.RepositoryURL != null)
+                buildDomainEntity.SetRepository(request.RepositoryURL);
 
             // Convert domain entity to persistence model
             var buildPersistenceModel = _mapper.Map<BuildPersistenceModel>(buildDomainEntity);

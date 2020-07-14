@@ -1,6 +1,7 @@
 using Ghoul.Presentation.Web.Middleware.HostedService;
 using Microsoft.AspNetCore.SpaServices;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Ghoul.Web.Middleware
