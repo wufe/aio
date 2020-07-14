@@ -10,12 +10,18 @@ using Ghoul.Persistence.Repository.Interface;
 using MediatR;
 
 namespace Ghoul.Application.Service.Handlers.Commands {
-    public class CreateBuildCommandHandler : IRequestHandler<CreateBuildCommand, string>
+    // Questo è l'HANDLER (event listener)
+    //
+    // Implementa l'interfaccia MediatR.IRequestHandler<COMANDO, TIPO RITORNO>
+    public class CreateBuildCommandHandler : IRequestHandler<CreateBuildCommand, string> // <--- MediatR.IRequestHandler
     {
         private readonly IMapper _mapper;
         private readonly IBuildDomainService _buildService;
         private readonly IRepository<BuildPersistenceModel> _buildRepository;
 
+        // Essendo configurato nello Startup.cs, 
+        // ha accesso al container di dependency injection.
+        // Permette dunque di iniettare i repository che ti servono, o l'istanza di automapper
         public CreateBuildCommandHandler(
             IMapper mapper,
             IBuildDomainService buildService,
@@ -26,6 +32,12 @@ namespace Ghoul.Application.Service.Handlers.Commands {
             _buildRepository = buildRepository;
         }
 
+        // L'interfaccia IRequestHandler richiede di implementare il metodo Handle
+        //
+        // Prende in input come primo parametro il CreateBuildCommand (l'evento originale), dispatchato nel controller
+        // 
+        // Restituisce in output un Task del tipo di ritorno (Definito in IRequestHandler<CreateBuildCommand, TIPO RITORNO>
+        // e nel comando IRequest<TIPO RITORNO>).
         public Task<string> Handle(CreateBuildCommand request, CancellationToken cancellationToken)
         {
             // Validate

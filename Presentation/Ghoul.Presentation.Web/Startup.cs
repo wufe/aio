@@ -31,11 +31,27 @@ namespace Ghoul.Web
         {
             #region Presentation
             services.AddControllersWithViews();
+            // Le regole di mapping a livello presentazionale sono definite
+            // tramite questo extensions method "AddPresentationMappings"
             services.AddPresentationMappings();
             #endregion
 
             #region Application
             services.AddApplicationMappings();
+
+            // Configurazione di MediatR, MEDIATOR pattern
+            // Consiste nel dargli in input un array di type di oggetti, contenenti COMMANDS e QUERIES.
+            // Questi tipi gli servono per capire l'assembly dove cercare i comandi/query (eventi)
+            // e gli handler (eventlisteners)
+            // Quindi basta dirgli semplicemente UN comando/query, e un HANDLER, se sono entrambi nello stesso assembly
+            // (assembly = progetto, in questo caso)
+            //
+            // "GetAllBuildsQuery" è una query (evento)
+            // "GetAllBuildsQueryHandler" è un handler (event listener)
+            //
+            // Utilizzando le interfacce IRequest e IRequestHandler,
+            // la libreria MediatR si fà la scansione di tutte le classi nell'assembly
+            // e associa ad ogni richiesta di tipo IRequest, un handler di tipo IRequestHandler
             services.AddMediatR(typeof(GetAllBuildsQuery), typeof(GetAllBuildsQueryHandler));
             #endregion
 
