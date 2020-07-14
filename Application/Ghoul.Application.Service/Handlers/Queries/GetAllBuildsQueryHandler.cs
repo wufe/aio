@@ -1,34 +1,44 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Ghoul.Application.Model;
+using Ghoul.Application.Model.Build;
 using Ghoul.Application.Model.Queries;
 using Ghoul.Persistence.Model;
 using Ghoul.Persistence.Repository.Interface;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Ghoul.Application.Service.Handlers.Queries {
-    public class GetAllBuildsQueryHandler : IRequestHandler<GetAllBuildsQuery, BuildApplicationModel[]>
+    public class GetAllBuildsQueryHandler : IRequestHandler<GetAllBuildsQuery, BuildBaseApplicationModel[]>
     {
+        private readonly ILogger<GetAllBuildsQueryHandler> _logger;
         private readonly IMapper _mapper;
         private readonly IReadRepository<BuildPersistenceModel> _buildRepository;
 
         public GetAllBuildsQueryHandler (
+            ILogger<GetAllBuildsQueryHandler> logger,
             IMapper mapper,
             IReadRepository<BuildPersistenceModel> buildRepository)
         {
+            _logger = logger;
             _mapper = mapper;
             _buildRepository = buildRepository;
         }
 
-        public Task<BuildApplicationModel[]> Handle(GetAllBuildsQuery request, CancellationToken cancellationToken)
+        public Task<BuildBaseApplicationModel[]> Handle(GetAllBuildsQuery request, CancellationToken cancellationToken)
         {
-            var buildPersistenceModels = _buildRepository.FindAll();
-            var buildApplicationModels = _mapper.Map<BuildApplicationModel[]>(buildPersistenceModels);
+            var buildApplicationModels = _buildRepository
+                .FindAll()
+                .ProjectTo<BuildBaseApplicationModel>(_mapper.ConfigurationProvider);
 
-            return Task.FromResult(buildApplicationModels);
+            _logger.LogTrace(buildApplicationModels.ToString());
+
+            return Task.FromResult(buildApplicationModels.ToArray());
         }
     }
 }

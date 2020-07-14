@@ -1,6 +1,6 @@
 using System;
 
-namespace Ghoul.Application.Model {
+namespace Ghoul.Application.Model.Build {
     public class BuildApplicationModel {
         public string ID { get; set; }
         public string Name { get; set; }

@@ -31,12 +31,9 @@ export const BuildSummary = (props: React.PropsWithChildren<{ build: TBuild; onH
                 </div>
                 <div className="__column __actions-column">
                     <div className="__actions-container">
-                        {/* <Link to={`/build/${props.build.id}`}> */}
-                            <button className="__action" onClick={onEditClick}>
-                                <FaPencilAlt />
-                            </button>
-                            
-                        {/* </Link> */}
+                        <button className="__action" onClick={onEditClick}>
+                            <FaPencilAlt />
+                        </button>
                         <button className="__action" onClick={onActionClick}><FaTrashAlt /></button>
                     </div>
                 </div>

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using AutoMapper;
 using Ghoul.Application.Model;
+using Ghoul.Application.Model.Build;
 using Ghoul.Application.Model.Commands;
 using Ghoul.Application.Model.Queries;
 using Ghoul.Presentation.Model;
@@ -28,7 +29,7 @@ namespace Ghoul.Presentation.Web.Controllers.API {
         }
 
         [HttpGet]
-        public async Task<BuildApplicationModel[]> Index()
+        public async Task<BuildBaseApplicationModel[]> Index()
         {
             return await _mediator.Send(new GetAllBuildsQuery());
         }

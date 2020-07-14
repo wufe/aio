@@ -24,3 +24,9 @@ render(
         </Provider>
     </React.StrictMode>,
     document.getElementById('loading'));
+
+declare let module: any;
+
+if (module.hot) {
+    module.hot.accept()
+}

@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Ghoul.Application.Model;
+using Ghoul.Application.Model.Build;
 using Ghoul.Application.Model.Queries;
 using Ghoul.Persistence.Model;
 using Ghoul.Persistence.Repository.Interface;

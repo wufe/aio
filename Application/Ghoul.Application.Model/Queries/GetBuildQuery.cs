@@ -1,3 +1,4 @@
+using Ghoul.Application.Model.Build;
 using MediatR;
 
 namespace Ghoul.Application.Model.Queries {

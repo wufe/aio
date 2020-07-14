@@ -8,5 +8,15 @@
     h1 {
         font-family: inherit;
         font-weight: 300;
+
+        > * {
+            text-decoration: none;
+            color: $nord0;
+            cursor: pointer;
+            user-select: none;
+            -ms-user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+        }
     }
 }

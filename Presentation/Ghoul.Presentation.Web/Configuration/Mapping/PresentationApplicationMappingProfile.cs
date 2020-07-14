@@ -1,5 +1,6 @@
 using AutoMapper;
 using Ghoul.Application.Model;
+using Ghoul.Application.Model.Build;
 using Ghoul.Application.Model.Commands;
 using Ghoul.Presentation.Model.Build;
 
