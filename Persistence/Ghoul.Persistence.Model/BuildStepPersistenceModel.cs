@@ -4,11 +4,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Ghoul.Persistence.Model {
-    public class BuildStepPersistenceModel : IPrimaryKeyEntity {
-
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string ID { get; set; }
+    public class BuildStepPersistenceModel {
         public string Name { get; set; } = "";
         public string Status { get; set; }
         public string CommandExecutable { get; set; } = "";

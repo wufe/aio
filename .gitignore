@@ -754,3 +754,4 @@ healthchecksdb
 MigrationBackup/
 
 # End of https://www.gitignore.io/api/node,macos,windows,visualstudio,visualstudiocode
+.parcel-cache

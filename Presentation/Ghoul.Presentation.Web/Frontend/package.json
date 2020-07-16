@@ -1,7 +1,7 @@
 {
   "name": "@wufe/ghoul.web.frontend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.html",
   "license": "MIT",
   "devDependencies": {
     "@loadable/component": "^5.12.0",
@@ -12,7 +12,7 @@
     "@types/react-router-dom": "^5.1.5",
     "@wufe/neui": "^1.0.1",
     "nord": "^0.2.1",
-    "parcel": "^1.12.4",
+    "parcel": "^2.0.0-beta.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
@@ -21,7 +21,7 @@
     "typescript": "^3.9.2"
   },
   "scripts": {
-    "dev": "parcel watch -t browser -d dist --no-cache index.html"
+    "dev": "parcel watch --dist-dir dist --no-cache index.html"
   },
   "dependencies": {
     "axios": "^0.19.2",

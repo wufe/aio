@@ -15,8 +15,9 @@ export const getUndefinedBuild = (id: string): TBuild => ({
 })
 
 export type TStep = {
-    executable?: string;
-    arguments?: string;
+    name: string;
+    commandExecutable?: string;
+    commandArguments?: string;
     environmentVariables?: string[];
     workingDirectory?: string;
     fireAndForget?: boolean;

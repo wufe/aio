@@ -1,3 +1,4 @@
+using System.Linq;
 using AutoMapper;
 using Ghoul.Application.Model;
 using Ghoul.Application.Model.Build;
@@ -15,7 +16,10 @@ namespace Ghoul.Application.Configuration.Mapping {
                 .ForMember(am => am.RepositoryTrigger, opt => opt.MapFrom(pm => pm.Repository != null ? pm.Repository.Trigger : null ));
 
             CreateMap<BuildStepPersistenceModel, BaseBuildStepApplicationModel>();
-            CreateMap<BuildStepPersistenceModel, BuildStepApplicationModel>();
+            CreateMap<BuildStepPersistenceModel, BuildStepApplicationModel>()
+                .ForMember(am => am.EnvironmentVariables,
+                    opt => opt.MapFrom(pm =>
+                        pm.EnvironmentVariables.Select(env => $"{env.Key}={env.Value}")));
         }
     }
 }

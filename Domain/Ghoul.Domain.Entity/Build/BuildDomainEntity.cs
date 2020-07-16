@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ghoul.Domain.Entity.Build {
 
@@ -10,7 +11,7 @@ namespace Ghoul.Domain.Entity.Build {
     }
 
     public class BuildDomainEntity {
-
+        public string ID { get; set; }
         public string Name { get; private set; }
         public BuildStatus Status { get; private set; }
         public BuildRepositoryDomainEntity Repository { get; private set; }
@@ -24,6 +25,8 @@ namespace Ghoul.Domain.Entity.Build {
         public static BuildDomainEntity CreateNew(string name) {
             return new BuildDomainEntity {
                 Name = name,
+                Status = BuildStatus.Idle,
+                Repository = null,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
                 Steps = new List<BuildStepDomainEntity>()
@@ -39,6 +42,17 @@ namespace Ghoul.Domain.Entity.Build {
         public BuildDomainEntity SetStatus(BuildStatus status) {
             Status = status;
             return this;
+        }
+
+        public BuildDomainEntity AppendNewStep(string name) {
+            var stepsList = Steps.ToList();
+            stepsList.Add(BuildStepDomainEntity.CreateNew(name));
+            Steps = stepsList;
+            return this;
+        }
+
+        public BuildStepDomainEntity WithStepAt(int index) {
+            return Steps.ElementAt(index);
         }
     }
 }

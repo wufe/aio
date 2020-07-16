@@ -16,7 +16,6 @@ namespace Ghoul.Persistence.Model
         public BuildRepositoryPersistenceModel Repository { get; set; }
         public IEnumerable<BuildStepPersistenceModel> Steps { get; set; } = new List<BuildStepPersistenceModel>();
 
-
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
     }

@@ -12,4 +12,4 @@ export const DashboardActions = () => {
             <BuildCreationModal />
         </>
     </div>;
-}
+};

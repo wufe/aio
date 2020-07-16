@@ -1,0 +1,59 @@
+@import "~/style/index";
+
+.build-steps-list__component {
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex: 1;
+
+    > .__step {
+        font-size: .8em;
+        margin-top: 15px;
+        margin-right: 10px;
+        
+        opacity: .4;
+        font-weight: 400;
+        white-space: nowrap;
+
+        &:not(.--empty) {
+            padding: .8em 1.7em;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        &.--active {
+            @include neumorphistic-element($primary-color, 'pressed');
+            border-radius: 8px;
+            font-size: .8em;
+            opacity: 1;
+            
+        }
+
+        &:not(.--active):not(.--empty) {
+            &:hover {
+                @include neumorphistic-element($primary-color, 'flat');
+                border-radius: 8px;
+                opacity: 1;
+                
+            }
+        }
+
+        &.--empty {
+            opacity: .8;
+            > input {
+                @include neumorphistic-element($primary-color, 'flat-noshadow');
+                border: 0;
+                outline: none;
+                font-weight: 400;
+                padding: .8em 1.7em;
+                border-radius: 8px;
+                width: 100%;
+
+                &.--error {
+                    border: 1px solid $nord11;
+                }
+            }
+        }
+    }
+}

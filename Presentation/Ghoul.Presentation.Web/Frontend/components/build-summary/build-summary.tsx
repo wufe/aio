@@ -3,15 +3,16 @@ import './build-summary.scss';
 import { TBuild } from '~/types';
 import { FaTrashAlt, FaPencilAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { useBuildPageLoad } from '../pages/build/build-hook';
+import { useBuildPageLoad, useBuildAPI } from '../pages/build/build-hook';
 
 export const BuildSummary = (props: React.PropsWithChildren<{ build: TBuild; onHeaderClick?: () => void }>) => {
 
     const { go } = useBuildPageLoad();
+    const { getAll, remove } = useBuildAPI();
 
 
-    const onActionClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-        console.log('click')
+    const onDeleteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        remove(props.build.id).then(() => getAll())
     }
 
     const onEditClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -34,7 +35,9 @@ export const BuildSummary = (props: React.PropsWithChildren<{ build: TBuild; onH
                         <button className="__action" onClick={onEditClick}>
                             <FaPencilAlt />
                         </button>
-                        <button className="__action" onClick={onActionClick}><FaTrashAlt /></button>
+                        <button className="__action" onClick={onDeleteClick}>
+                            <FaTrashAlt />
+                        </button>
                     </div>
                 </div>
             </div>

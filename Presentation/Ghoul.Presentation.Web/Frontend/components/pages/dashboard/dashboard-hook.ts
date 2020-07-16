@@ -1,8 +1,8 @@
-import { useBuildsRetrieval } from "~/components/dashboard/builds-list/build-list-hook";
 import { useHistory } from "react-router-dom";
+import { useBuildAPI } from "../build/build-hook";
 
 export const useDashboardPageLoad = () => {
-    const { getAll } = useBuildsRetrieval();
+    const { getAll } = useBuildAPI();
     const { push } = useHistory();
 
     return {

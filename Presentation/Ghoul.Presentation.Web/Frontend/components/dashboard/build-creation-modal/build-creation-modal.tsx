@@ -3,7 +3,7 @@ import { Modal } from '~/components/modal/modal';
 import './build-creation-modal.scss';
 import { useBuildCreation } from './build-creation-hooks';
 import { useModal } from '~/components/modal/modal-hooks';
-import { useBuildsRetrieval } from '../builds-list/build-list-hook';
+import { useBuildAPI } from '~/components/pages/build/build-hook';
 
 type TForm = {
     [field: string]: {
@@ -21,7 +21,7 @@ const BuildCreationModal = () => {
     const [formEnabled, setFormEnabled] = React.useState(true);
     const { saveBuild } = useBuildCreation();
     const { hide: hideModal } = useModal();
-    const { getAll } = useBuildsRetrieval();
+    const { getAll } = useBuildAPI();
 
     const save = async (e: React.FormEvent) => {
         e.preventDefault();
