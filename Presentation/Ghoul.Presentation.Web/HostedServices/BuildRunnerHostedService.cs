@@ -249,6 +249,9 @@ namespace Ghoul.Presentation.Web.HostedServices {
                     RedirectStandardOutput = true,
                     RedirectStandardError = true
                 };
+                foreach (var envVariable in Step.EnvironmentVariables)
+                    processInfo.EnvironmentVariables[envVariable.Split('=')[0]] = envVariable.Split('=')[1];
+                    
                 var process = Process.Start(processInfo);
 
                 if (!Step.FireAndForget) {
@@ -265,8 +268,8 @@ namespace Ghoul.Presentation.Web.HostedServices {
                             OnLog(e.Data, CommandLogType.Stderr);
                     };
                     process.WaitForExit();
-                    process.Close();
                     exitCode = process.ExitCode;
+                    process.Close();
                 }
                 
             });
