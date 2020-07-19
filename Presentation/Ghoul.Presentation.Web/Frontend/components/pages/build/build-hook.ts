@@ -116,3 +116,6 @@ export const usePolling = (callback: () => any, timeout: number, condition = tru
         }
     })
 }
+
+export const delay = (ms: number) =>
+    new Promise(resolve => setTimeout(resolve, ms));

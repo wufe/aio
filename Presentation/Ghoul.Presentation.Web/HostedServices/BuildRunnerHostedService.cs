@@ -210,7 +210,7 @@ namespace Ghoul.Presentation.Web.HostedServices {
 
                     await mediator.Send(new AddRunLogCommand(_currentBuildRun.Run.ID, $"#endregion ({exitCode})", LogType.Stdout));
 
-                    if (outcome == StepOutcome.Fail) {
+                    if (outcome == StepOutcome.Fail && _currentStep.Step.HaltOnError) {
                         _stateMachine.Fire(BuildRunnerTrigger.HaltBuild);
                     } else {
                         _stateMachine.Fire(BuildRunnerTrigger.SearchForNewStep);
@@ -238,6 +238,7 @@ namespace Ghoul.Presentation.Web.HostedServices {
         }
 
         public async Task<int> Run() {
+            var exitCode = -1;
             await Task.Run(() => {
                 var processInfo = new ProcessStartInfo()
                 {
@@ -249,20 +250,27 @@ namespace Ghoul.Presentation.Web.HostedServices {
                     RedirectStandardError = true
                 };
                 var process = Process.Start(processInfo);
-                process.BeginOutputReadLine();
-                process.BeginErrorReadLine();
-                process.OutputDataReceived += (sender, e) => {
-                    if (!String.IsNullOrEmpty(e.Data))
-                        OnLog(e.Data, CommandLogType.Stdout);
-                };
-                process.ErrorDataReceived += (sender, e) => {
-                    if (!String.IsNullOrEmpty(e.Data))
-                        OnLog(e.Data, CommandLogType.Stderr);
-                };
-                process.WaitForExit();
-                process.Close();
+
+                if (!Step.FireAndForget) {
+                    process.BeginOutputReadLine();
+                    process.BeginErrorReadLine();
+                    process.OutputDataReceived += (sender, e) =>
+                    {
+                        if (!String.IsNullOrEmpty(e.Data))
+                            OnLog(e.Data, CommandLogType.Stdout);
+                    };
+                    process.ErrorDataReceived += (sender, e) =>
+                    {
+                        if (!String.IsNullOrEmpty(e.Data))
+                            OnLog(e.Data, CommandLogType.Stderr);
+                    };
+                    process.WaitForExit();
+                    process.Close();
+                    exitCode = process.ExitCode;
+                }
+                
             });
-            return 0;
+            return exitCode;
         }
     }
 

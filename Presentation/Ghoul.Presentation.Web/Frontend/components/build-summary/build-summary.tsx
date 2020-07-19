@@ -3,10 +3,11 @@ import './build-summary.scss';
 import { TBuild, TRun } from '~/types';
 import { FaTrashAlt, FaPencilAlt, FaDivide, FaPlay } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { useBuildPageLoad, useBuildAPI, usePolling } from '../pages/build/build-hook';
+import { useBuildPageLoad, useBuildAPI, usePolling, delay } from '../pages/build/build-hook';
 import { diff } from 'deep-diff';
 import { Modal } from '../modal/modal';
 import { useModal } from '../modal/modal-hooks';
+import { TextualModalLayout } from '../modal/modal-layout/textual-modal-layout/textual-modal-layout';
 
 type TProps = {
     build: TBuild;
@@ -21,7 +22,7 @@ export const BuildSummary = React.memo((props: React.PropsWithChildren<TProps>) 
     const { go } = useBuildPageLoad();
     const { getAll, remove } = useBuildAPI();
     const { getLatestRun, enqueueNewRun } = useBuildAPI();
-    const { show } = useModal();
+    const { hide, show } = useModal();
 
     const enqueueNewRunModal = '@@enqueueNewRunModal@@';
     const deleteBuildModal = '@@deleteBuildModal@@';
@@ -39,21 +40,35 @@ export const BuildSummary = React.memo((props: React.PropsWithChildren<TProps>) 
 
     const onEnqueueClick = () => {
         enqueueNewRun(props.build.id)
-            .then(() => show(enqueueNewRunModal));
+            .then(() => show(enqueueNewRunModal))
+            .then(() => delay(1000))
+            .then(hide);
     }
 
     const onDeleteClick = () => {
         show(deleteBuildModal);
-        // remove(props.build.id).then(() => getAll())
     }
+
+    const onDeleteConfirm = () =>
+        remove(props.build.id)
+            .then(() => getAll())
+            .then(hide);
 
     const onEditClick = () => {
         go(props.build.id);
     }
 
     return <div className="build__component">
-        <Modal name={enqueueNewRunModal}>New build enqueued.</Modal>
-        <Modal name={deleteBuildModal}>You sure? Delete? Really?</Modal> {/*Sure, go on*/}
+        <Modal name={enqueueNewRunModal}>Build enqueued.</Modal>
+        <Modal name={deleteBuildModal}>
+            <TextualModalLayout actionsRenderer={() => <>
+                <div className="__action" onClick={hide}>Nevermind</div>
+                <div className="__action --danger" onClick={onDeleteConfirm}>Yea, do it</div>
+            </>}>
+                You sure? Delete? Really?
+            </TextualModalLayout>
+            
+        </Modal> {/*Sure, go on*/}
         <div className="__header">
             <div className="__row">
                 <div className="__column" onClick={() => props.onHeaderClick && props.onHeaderClick()}>
@@ -96,7 +111,7 @@ export const BuildSummary = React.memo((props: React.PropsWithChildren<TProps>) 
                 </div>
                 <div className="__column"></div>
                 <div className="__column">
-                    {run && <>
+                    {run && run.logs.length > 0 && <>
                         <div className="__column-header">Log</div>
                         <div className="__column-content">
                             <div className="__terminal-log">

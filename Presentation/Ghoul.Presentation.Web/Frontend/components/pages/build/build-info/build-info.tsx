@@ -60,7 +60,7 @@ export const BuildInfo = (props: React.PropsWithChildren<TProps>) => {
                 </label>
             </div>
         </div>
-        <div className="__section">
+        {/* <div className="__section">
             <div className="__header">Repository</div>
             <div className="__content">
                 <label htmlFor="repositoryURL" className="--grid">
@@ -78,7 +78,7 @@ export const BuildInfo = (props: React.PropsWithChildren<TProps>) => {
                     </select>
                 </label>
             </div>
-        </div>
+        </div> */}
         <div className="__section __actions-container">
             <button className={`__action --success ${dirty ? '' : '--disabled'}`}
                 onClick={onSaveClick}>Save</button>
