@@ -1,3 +1,3 @@
-npx fkill-cli Ghoul.Presentation.Web
+npx fkill-cli Ghoul.Presentation.Web --force
 cd $PSScriptRoot/../Build
-ASPNETCORE_ENVIRONMENT=Production ./Ghoul.Presentation.Web
+Start-Process ./Ghoul.Presentation.Web -RedirectStandardOutput '.\log.out' -RedirectStandardError '.\log.err'
