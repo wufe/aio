@@ -23,7 +23,8 @@
     "typescript": "^3.9.2"
   },
   "scripts": {
-    "dev": "parcel watch -t browser -d dist --no-cache index.html"
+    "dev": "parcel watch -t browser -d dist --no-cache index.html",
+    "build": "parcel build -t browser -d dist --no-cache index.html"
   },
   "dependencies": {
     "axios": "^0.19.2",

@@ -1061,10 +1061,10 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@wufe/neui@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@wufe/neui/-/neui-1.0.1.tgz#93c0dd3afffc8f8542b2019150f22402b86bf729"
-  integrity sha512-5XgyTl9A+oDPHNRgz75tbwpj0TbUcPk+EDApBj0LtAH/+MTix3Uz3dzIDXRceO7lhkhLGjX6Dwkx9whDsnpTtQ==
+"@wufe/neui@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@wufe/neui/-/neui-1.1.0.tgz#17ad9161df1f3592c5e06ebbd2cd4fdda3827f49"
+  integrity sha512-dC0MybfySNeOO2QNJgMqC28NBK73m4gnzPINExC60jY3vF0W1SfiFWhe8mhzKeDiH2p7cLbh/cetwiTpcz60eQ==
 
 abab@^2.0.0:
   version "2.0.3"
