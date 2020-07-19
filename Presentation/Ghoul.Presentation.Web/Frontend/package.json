@@ -11,7 +11,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.5",
-    "@wufe/neui": "^1.0.1",
+    "@wufe/neui": "^1.1.0",
     "deep-diff": "^1.0.2",
     "nord": "^0.2.1",
     "parcel": "1.12.4",
