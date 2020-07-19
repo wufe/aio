@@ -18,6 +18,7 @@ namespace Ghoul.Presentation.Web.Configuration.Mapping {
 
         private void CreateCommandQueryMappings() {
             CreateMap<CreateBuildInputModel, CreateBuildCommand>();
+            CreateMap<UpdateBuildInputModel, UpdateBuildCommand>();
             CreateMap<CreateStepInputModel, CreateStepCommand>();
             CreateMap<UpdateStepInputModel, UpdateStepCommand>();
         }

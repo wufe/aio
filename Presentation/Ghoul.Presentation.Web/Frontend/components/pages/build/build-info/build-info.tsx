@@ -4,10 +4,25 @@ import { TBuild } from '~/types';
 
 type TProps = {
     build: TBuild;
-    setBuildField: (field: keyof TBuild) => (value: any) => void;
+    onBuildUpdate: (build: TBuild) => (Promise<any> | any);
 }
 
 export const BuildInfo = (props: React.PropsWithChildren<TProps>) => {
+
+    const [buildDraft, setBuildDraft] = React.useState<TBuild>(null);
+    const [dirty, setDirty] = React.useState(false);
+
+    const setBuildField = (field: keyof TBuild) => (value: any) => {
+        setBuildDraft({ ...buildDraft, [field]: value });
+        setDirty(true);
+    };
+
+    const onSaveClick = () => {
+        setDirty(false);
+        Promise.resolve()
+            .then(() => props.onBuildUpdate(buildDraft))
+            .catch(() => setDirty(true));
+    }
 
     const events = [
         'CommitComment',
@@ -26,6 +41,13 @@ export const BuildInfo = (props: React.PropsWithChildren<TProps>) => {
         'Watch'
     ];
 
+    React.useEffect(() => {
+        setBuildDraft({...props.build});
+    }, [props.build]);
+
+    if (!buildDraft)
+        return <></>;
+
     return <div className="build-info__component">
         <div className="__section">
             <div className="__header">Info</div>
@@ -33,8 +55,8 @@ export const BuildInfo = (props: React.PropsWithChildren<TProps>) => {
                 <label htmlFor="name">
                     <span>Name</span>
                     <input type="text" id="name"
-                        value={props.build.name || ''}
-                        onChange={e => props.setBuildField('name')(e.target.value)} />
+                        value={buildDraft.name || ''}
+                        onChange={e => setBuildField('name')(e.target.value)} />
                 </label>
             </div>
         </div>
@@ -44,21 +66,22 @@ export const BuildInfo = (props: React.PropsWithChildren<TProps>) => {
                 <label htmlFor="repositoryURL" className="--grid">
                     <span>URL</span>
                     <input type="text" id="repositoryURL"
-                        value={props.build.repositoryURL || ''}
-                        onChange={e => props.setBuildField('repositoryURL')(e.target.value)} />
+                        value={buildDraft.repositoryURL || ''}
+                        onChange={e => setBuildField('repositoryURL')(e.target.value)} />
                 </label>
                 <label htmlFor="repositoryEvent" className="--grid">
                     <span>Trigger</span>
-                    <select id="repositoryEvent" defaultValue={events[0]}
-                        value={props.build.repositoryEvent}
-                        onChange={e => props.setBuildField('repositoryEvent')(e.target.value)}>
+                    <select id="repositoryEvent"
+                        value={buildDraft.repositoryTrigger}
+                        onChange={e => setBuildField('repositoryTrigger')(e.target.value)}>
                         {events.map(e => <option key={e} value={e}>{e}</option>)}
                     </select>
                 </label>
             </div>
         </div>
         <div className="__section __actions-container">
-            <button className="__action --success --disabled">Save</button>
+            <button className={`__action --success ${dirty ? '' : '--disabled'}`}
+                onClick={onSaveClick}>Save</button>
         </div>
     </div>
 }

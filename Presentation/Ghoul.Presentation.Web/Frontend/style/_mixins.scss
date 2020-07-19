@@ -47,6 +47,12 @@
 	}
 }
 
+@mixin xlarge-up {
+	@media screen and (min-width: #{map-get($breakpoints, large)}) {
+		@content;
+	}
+}
+
 
 @mixin container {
 	margin: 0 auto;
@@ -62,6 +68,10 @@
 
     @include large-up {
         max-width: map-get($breakpoints, large);
+	}
+	
+	@include xlarge-up {
+        max-width: map-get($breakpoints, xlarge);
     }
 }
 

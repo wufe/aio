@@ -8,6 +8,7 @@ import { useBuildAPI } from '../../build-hook';
 type TProps = {
     step: TStep;
     onStepUpdate: (step: TStep) => (Promise<any> | any);
+    onStepDeletion: () => (Promise<any> | any);
 };
 
 export const BuildStepConfiguration = (props: React.PropsWithChildren<TProps>) => {
@@ -46,6 +47,11 @@ export const BuildStepConfiguration = (props: React.PropsWithChildren<TProps>) =
         Promise.resolve()
             .then(() => props.onStepUpdate(stepDraft))
             .catch(() => setDirty(true));
+    }
+
+    const onDeleteClick = () => {
+        Promise.resolve()
+            .then(() => props.onStepDeletion());
     }
 
     return <div className="build-step-configuration__component">
@@ -116,7 +122,8 @@ export const BuildStepConfiguration = (props: React.PropsWithChildren<TProps>) =
             <button
                 className={`__action --success ${dirty ? '' : '--disabled'}`}
                 onClick={onSaveClick}>Save</button>
-            <button className="__action --danger">Delete</button>
+            <button className="__action --danger"
+                onClick={onDeleteClick}>Delete</button>
         </div>
     </div>;
 };

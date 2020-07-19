@@ -4,13 +4,14 @@ import { TStep } from '~/types';
 
 type TProps = {
     steps: TStep[];
+    activeStepIndex: number;
     onNewStep: (name: string) => (Promise<any> | any);
     onStepClick?: (name: string) => any;
 }
 
 export const BuildStepsList = (props: React.PropsWithChildren<TProps>) => {
 
-    const [activeStep, setActiveStep] = React.useState<string>(null);
+    // const [activeStep, setActiveStep] = React.useState<string>(null);
     const [newStepEnabled, setNewStepEnabled] = React.useState(true);
     const [newStepValue, setNewStepValue] = React.useState("");
     const [newStepError, setNewStepError] = React.useState(false);
@@ -31,21 +32,21 @@ export const BuildStepsList = (props: React.PropsWithChildren<TProps>) => {
     };
 
     const onStepClick = (name: string) => {
-        setActiveStep(name);
+        // setActiveStep(name);
         if (props.onStepClick)
             props.onStepClick(name);
     };
 
     React.useEffect(() => {
-        if (props.steps.length && activeStep === null)
+        if (props.steps.length && props.activeStepIndex < 0)
             onStepClick(props.steps[0].name);
     });
 
     return <div className="build-steps-list__component">
-        {props.steps.map(step => <div
+        {props.steps.map((step, i) => <div
             key={step.name}
             onClick={() => onStepClick(step.name)}
-            className={`__step ${activeStep === step.name ? '--active' : ''}`}>{step.name}</div>)}
+            className={`__step ${props.activeStepIndex === i ? '--active' : ''}`}>{step.name}</div>)}
         <div className="__step --empty">
             <input type="text" placeholder="New step.." className={newStepError ? '--error' : ''}
                 onKeyUp={onNewStepKeyUp}

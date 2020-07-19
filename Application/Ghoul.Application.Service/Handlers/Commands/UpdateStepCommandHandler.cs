@@ -28,18 +28,6 @@ namespace Ghoul.Application.Service.Handlers.Commands {
 
         public Task<Unit> Handle(UpdateStepCommand request, CancellationToken cancellationToken)
         {
-            // Conversion
-            var buildPersistenceModel = _buildRepository.Find(request.BuildID);
-
-            // Validation
-            if (buildPersistenceModel == null)
-                throw new ArgumentNullException($"Build with ID \"{request.BuildID}\" not found.");
-            if (buildPersistenceModel.Steps.Count() <= request.StepIndex)
-                throw new ArgumentNullException($"Step with index {request.StepIndex} for build with ID \"{request.BuildID}\" not found.");
-
-            // Conversion to domain entity
-            var buildDomainEntity = _mapper.Map<BuildDomainEntity>(buildPersistenceModel);
-
             // Parsing of request
             IDictionary<string, string> environmentVariables;
             try {
@@ -53,12 +41,23 @@ namespace Ghoul.Application.Service.Handlers.Commands {
                 throw new ArgumentException("Could not parse step status.");
             }
 
+            // Retrieval
+            var buildPersistenceModel = _buildRepository.Find(request.BuildID);
+
+            // Validation
+            if (buildPersistenceModel == null)
+                throw new ArgumentNullException($"Build with ID \"{request.BuildID}\" not found.");
+            if (buildPersistenceModel.Steps.Count() <= request.StepIndex)
+                throw new ArgumentNullException($"Step with index {request.StepIndex} for build with ID \"{request.BuildID}\" not found.");
+
+            // Conversion to domain entity
+            var buildDomainEntity = _mapper.Map<BuildDomainEntity>(buildPersistenceModel);
+
             // Update
             buildDomainEntity
                 .WithStepAt(request.StepIndex)
                 .SetCommand(request.CommandExecutable, request.CommandArguments)
                 .SetEnvironmentVariables(environmentVariables)
-                .SetStatus(stepStatus)
                 .SetWorkingDirectory(request.WorkingDirectory)
                 .SetFireAndForget(request.FireAndForget)
                 .SetHaltOnError(request.HaltOnError);

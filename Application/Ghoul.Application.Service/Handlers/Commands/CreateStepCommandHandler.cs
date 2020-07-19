@@ -34,18 +34,18 @@ namespace Ghoul.Application.Service.Handlers.Commands {
 
         public Task<string> Handle(CreateStepCommand request, CancellationToken cancellationToken)
         {
-            // Validate
+            // Retrieve
             var buildPersistenceModel = _buildRepository.Find(request.BuildID);
+
+            // Validate
             if (buildPersistenceModel == null)
                 throw new ArgumentException($"Cannot find build with id \"{request.BuildID}\"");
-            if (buildPersistenceModel.Steps.Any(step => step.Name.ToLower() == request.Name.ToLower()))
-                throw new ArgumentException($"A step named \"{request.Name}\" has already been created.");
-
-            // Conversion to domain entity
+            
+            // Convert to domain entity
             var buildDomainEntity = _mapper.Map<BuildDomainEntity>(buildPersistenceModel);
 
-            // Update domain entity
-            buildDomainEntity.AppendNewStep(request.Name);
+            // Add step to build domain entity
+            buildDomainEntity = _buildService.AppendNewStepToBuild(buildDomainEntity, request.Name);
 
             // Convert domain entity to persistence model
             buildPersistenceModel = _mapper.Map<BuildPersistenceModel>(buildDomainEntity);

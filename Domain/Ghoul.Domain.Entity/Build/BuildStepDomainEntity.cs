@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Ghoul.Domain.Entity.Build {
@@ -6,10 +7,20 @@ namespace Ghoul.Domain.Entity.Build {
         Idle,
         Waiting,
         Running,
-        Error
+        Done,
+        Error,
+        Unreachable,    // When a previous step throws an error
     }
 
     public class BuildStepDomainEntity {
+
+        public enum StepOutcome
+        {
+            Success,
+            Fail,
+            Unknown
+        }
+
         public string Name { get; set; }
         public BuildStepStatus Status { get; set; }
         public string CommandExecutable { get; private set; }
@@ -32,11 +43,6 @@ namespace Ghoul.Domain.Entity.Build {
             };
         }
 
-        public BuildStepDomainEntity SetStatus(BuildStepStatus status) {
-            Status = status;
-            return this;
-        }
-
         public BuildStepDomainEntity SetCommand(string executable, string arguments) {
             CommandExecutable = executable;
             CommandArguments = arguments;
@@ -53,6 +59,30 @@ namespace Ghoul.Domain.Entity.Build {
             return this;
         }
 
+        internal BuildStepDomainEntity Run()
+        {
+            if (Status != BuildStepStatus.Waiting)
+                throw new Exception($"Step was not expecting to be ran.");
+            Status = BuildStepStatus.Running;
+            return this;
+        }
+
+        internal BuildStepDomainEntity Stop(StepOutcome outcome)
+        {
+            if (Status != BuildStepStatus.Running)
+                throw new Exception($"Step was not expecting to be stopped: it was not running.");
+            switch (outcome) {
+                case StepOutcome.Fail:
+                    Status = BuildStepStatus.Error;
+                    break;
+                case StepOutcome.Success:
+                case StepOutcome.Unknown:
+                    Status = BuildStepStatus.Done;
+                    break;
+            }
+            return this;
+        }
+
         public BuildStepDomainEntity SetFireAndForget(bool fireAndForget) {
             FireAndForget = fireAndForget;
             return this;
@@ -60,6 +90,17 @@ namespace Ghoul.Domain.Entity.Build {
 
         public BuildStepDomainEntity SetHaltOnError(bool haltOnError) {
             HaltOnError = haltOnError;
+            return this;
+        }
+
+        public BuildStepDomainEntity WaitForRun() {
+            Status = BuildStepStatus.Waiting;
+            return this;
+        }
+
+        public BuildStepDomainEntity BuildStopped() {
+            if (Status == BuildStepStatus.Waiting)
+                Status = BuildStepStatus.Unreachable;
             return this;
         }
     }

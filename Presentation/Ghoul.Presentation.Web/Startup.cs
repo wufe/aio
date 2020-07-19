@@ -6,6 +6,7 @@ using Ghoul.Application.Service.Handlers.Queries;
 using Ghoul.Domain.Configuration.DI;
 using Ghoul.Persistence.Configuration.DI;
 using Ghoul.Presentation.Web.Configuration.DI;
+using Ghoul.Presentation.Web.HostedServices;
 using Ghoul.Web.Configuration;
 using Ghoul.Web.Middleware;
 using MediatR;
@@ -32,17 +33,19 @@ namespace Ghoul.Web
             #region Presentation
             services.AddControllersWithViews();
             services.AddPresentationMappings();
+            services.AddBuildRunner();
             #endregion
 
             #region Application
             services.AddApplicationMappings();
+            services.AddDomainRepositories();
             services.AddMediatR(typeof(GetAllBuildsQuery), typeof(GetAllBuildsQueryHandler));
             #endregion
 
             #region Persistence
             services.AddDatabaseSettings(Configuration);
             services.AddDBContext();
-            services.AddRepositories();
+            services.AddGenericRepositories();
             #endregion
 
             #region Domain

@@ -11,7 +11,7 @@ namespace Ghoul.Persistence.Configuration.DI {
             services.AddTransient<MongoDBContext>();
         }
 
-        public static void AddRepositories(this IServiceCollection services)
+        public static void AddGenericRepositories(this IServiceCollection services)
         {
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient(typeof(IReadRepository<>), typeof(ReadRepository<>));

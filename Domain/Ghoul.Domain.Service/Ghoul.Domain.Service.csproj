@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ghoul.Domain.Entity\Ghoul.Domain.Entity.csproj" />
+    <ProjectReference Include="..\Ghoul.Domain.Repository.Interface\Ghoul.Domain.Repository.Interface.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

@@ -51,17 +51,24 @@ namespace Ghoul.Presentation.Web.Controllers.API.Build {
                     var id = await _mediator.Send(_mapper.Map<CreateBuildCommand>(buildInputModel));
                     return Ok(id);
                 } catch (Exception exception) {
-                    return BadRequest(BadRequestOutputModel.FromException(exception));
+                    return BadRequest(exception.Message);
+                    // return BadRequest(BadRequestOutputModel.FromException(exception));
                 }
             }
             return BadRequest(ModelState);
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> UpdateBuildInfo(string id, [FromBody]UpdateBuildInfoInputModel updateBuildInfoInputModel) {
+        public async Task<IActionResult> UpdateBuild(string id, [FromBody]UpdateBuildInputModel inputModel) {
 
-            if (TryValidateModel(updateBuildInfoInputModel)) {
-                // TODO: Continue here
+            if (TryValidateModel(inputModel)) {
+                try {
+                    await _mediator.Send(_mapper.Map<UpdateBuildInputModel, UpdateBuildCommand>(inputModel, UpdateBuildCommand.FromBuildID(id)));
+                    return Ok();
+                } catch (Exception exception) {
+                    return BadRequest(BadRequestOutputModel.FromException(exception));
+                }
+                
             }
             return BadRequest(ModelState);
         }
@@ -102,6 +109,32 @@ namespace Ghoul.Presentation.Web.Controllers.API.Build {
                 }
             }
             return BadRequest(ModelState);
+        }
+
+        [HttpDelete("{buildID}/step/{stepIndex}")]
+        public async Task<IActionResult> DeleteStep(string buildID, int stepIndex)
+        {
+            try
+            {
+                await _mediator.Send(new DeleteStepCommand(buildID, stepIndex));
+                return Ok();
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(BadRequestOutputModel.FromException(exception));
+            }
+        }
+
+        [HttpGet("{buildID}/run/latest")]
+        public async Task<RunApplicationModel> GetLatestRun(string buildID) {
+            var run = await _mediator.Send(GetLatestRunQuery.FromBuild(buildID));
+            return run;
+        }
+
+        [HttpPost("{buildID}/run")]
+        public async Task<IActionResult> EnqueueRun(string buildID) {
+            await _mediator.Send(new EnqueueRunCommand(buildID));
+            return Ok();
         }
     }
 }

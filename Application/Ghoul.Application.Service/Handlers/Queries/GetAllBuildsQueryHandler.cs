@@ -36,7 +36,7 @@ namespace Ghoul.Application.Service.Handlers.Queries {
                 .FindAll()
                 .ProjectTo<BaseBuildApplicationModel>(_mapper.ConfigurationProvider);
 
-            _logger.LogTrace(buildApplicationModels.ToString());
+            // _logger.LogTrace(buildApplicationModels.ToString());
 
             return Task.FromResult(buildApplicationModels.ToArray());
         }

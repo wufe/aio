@@ -20,6 +20,9 @@ namespace Ghoul.Application.Configuration.Mapping {
                 .ForMember(am => am.EnvironmentVariables,
                     opt => opt.MapFrom(pm =>
                         pm.EnvironmentVariables.Select(env => $"{env.Key}={env.Value}")));
+
+            CreateMap<RunPersistenceModel, RunApplicationModel>();
+            CreateMap<RunLogPersistenceModel, RunLogApplicationModel>();
         }
     }
 }

@@ -14,6 +14,8 @@
     <ProjectReference Include="..\..\Persistence\Ghoul.Persistence.Repository.Mongo\Ghoul.Persistence.Repository.Mongo.csproj" />
     <ProjectReference Include="..\..\Domain\Ghoul.Domain.Entity\Ghoul.Domain.Entity.csproj" />
     <ProjectReference Include="..\Ghoul.Application.Model\Ghoul.Application.Model.csproj" />
+    <ProjectReference Include="..\Ghoul.Application.Domain.Repository\Ghoul.Application.Domain.Repository.csproj" />
+    <ProjectReference Include="..\..\Domain\Ghoul.Domain.Repository.Interface\Ghoul.Domain.Repository.Interface.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,21 +1,21 @@
 import * as React from 'react';
 import loadable from '@loadable/component';
-import { Route, Link, useHistory } from 'react-router-dom';
-import { Modal } from '~/components/modal/modal';
-import { useModal } from '~/components/modal/modal-hooks';
+import { Route } from 'react-router-dom';
 import './app.scss';
 import { Build } from '../pages/build/build';
 import { useDashboardPageLoad } from '../pages/dashboard/dashboard-hook';
-import { useBuildAPI } from '../pages/build/build-hook';
+import { useBuildAPI, usePolling } from '../pages/build/build-hook';
 
 export const App = () => {
 
-    const { push } = useHistory();
+    const { getAll } = useBuildAPI();
+    usePolling(getAll, 2000);
+
+    const { go } = useDashboardPageLoad();
     const DashboardPage = loadable(() => import('~/components/pages/dashboard/dashboard'));
 
-    const onLogoClick = () => push('/');
-
-    const { getAll } = useBuildAPI();
+    const onLogoClick = () => go();
+    
     React.useEffect(() => {
         getAll();
     }, []);
