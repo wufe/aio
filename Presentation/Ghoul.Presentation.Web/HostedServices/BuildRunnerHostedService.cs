@@ -145,7 +145,7 @@ namespace Ghoul.Presentation.Web.HostedServices {
                     try {
                         await mediator.Send(new StartBuildRunCommand(_currentBuildRun.Build.ID, _currentBuildRun.Run.ID));
                         _stateMachine.Fire(BuildRunnerTrigger.SearchForNewStep);
-                    } catch (Exception e) {
+                    } catch (Exception) {
                         // print out error ?
                         _stateMachine.Fire(BuildRunnerTrigger.SearchForNewBuild);
                     }
