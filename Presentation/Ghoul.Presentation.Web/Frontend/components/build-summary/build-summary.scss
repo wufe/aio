@@ -169,6 +169,8 @@
             width: 100%;
             @include neumorphistic-element($terminal-background-color, 'pressed', 1, 10px);
             padding: 10px;
+            max-height: 300px;
+            overflow: auto;
         }
 
         .__steps-container {
