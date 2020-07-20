@@ -115,7 +115,6 @@ export const BuildSummary = React.memo((props: React.PropsWithChildren<TProps>) 
                         </div>
                     </>}
                 </div>
-                <div className="__column"></div>
                 <div className="__column">
                     {run && run.logs.length > 0 && <>
                         <div className="__column-header">Log</div>
