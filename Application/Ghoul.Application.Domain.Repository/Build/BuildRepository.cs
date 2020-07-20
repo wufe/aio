@@ -39,8 +39,14 @@ namespace Ghoul.Application.Domain.Repository.Build {
         }
 
         public BuildRunContainer GetNextIdleRun() {
+
+            var availableBuilds = _buildRepository
+                .FindAll(x => x.Status == "Idle")
+                .Select(x => x.ID)
+                .ToList();
+
             var runPersistenceModel = _runRepository
-                .FindAll(x => x.EndedAt == null)
+                .FindAll(x => availableBuilds.Contains(x.BuildID) && x.EndedAt == null)
                 .OrderBy(x => x.RequestedAt)
                 .FirstOrDefault();
 

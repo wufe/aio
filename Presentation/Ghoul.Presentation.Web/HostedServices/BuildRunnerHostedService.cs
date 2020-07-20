@@ -188,10 +188,10 @@ namespace Ghoul.Presentation.Web.HostedServices {
                     await mediator.Send(new AddRunLogCommand(_currentBuildRun.Run.ID, $"#region {_currentStep.Step.Name}", LogType.Stdout));
 
                     // run the command
-                    var buildCommand = new BuildCommand(_currentStep.Step, async (message, messageType) => {
+                    var buildCommand = new BuildCommand(_currentBuildRun.Build, _currentStep, _currentBuildRun.Run, async (message, messageType) => {
                         await mediator.Send(new AddRunLogCommand(_currentBuildRun.Run.ID, message, messageType == CommandLogType.Stdout ? LogType.Stdout : LogType.Stderr));
                     });
-                    var exitCode = await buildCommand.Run();
+                    var exitCode = await buildCommand.Start();
 
                     StepOutcome outcome;
                     switch (exitCode) {
@@ -227,34 +227,37 @@ namespace Ghoul.Presentation.Web.HostedServices {
     }
 
     public class BuildCommand {
-        public BuildStepApplicationModel Step { get; private set; }
-
+        public BuildApplicationModel Build { get; private set; }
+        public GetWaitingStepQueryResponse StepContainer { get; private set; }
+        public RunApplicationModel Run { get; private set; }
         public Func<string, CommandLogType, Task> OnLog { get; private set; }
 
-        public BuildCommand(BuildStepApplicationModel step, Func<string, CommandLogType, Task> onLog)
+        public BuildCommand(BuildApplicationModel build, GetWaitingStepQueryResponse stepContainer, RunApplicationModel run, Func<string, CommandLogType, Task> onLog)
         {
-            Step = step;
+            Build = build;
+            StepContainer = stepContainer;
+            Run = run;
             OnLog = onLog;
         }
 
-        public async Task<int> Run() {
+        public async Task<int> Start() {
             var exitCode = -1;
             await Task.Run(() => {
                 var processInfo = new ProcessStartInfo()
                 {
                     UseShellExecute = false,
-                    FileName = Step.CommandExecutable,
-                    Arguments = Step.CommandArguments,
-                    WorkingDirectory = Step.WorkingDirectory,
+                    FileName = StepContainer.Step.CommandExecutable,
+                    Arguments = GetArguments(),
+                    WorkingDirectory = StepContainer.Step.WorkingDirectory,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true
                 };
-                foreach (var envVariable in Step.EnvironmentVariables)
+                foreach (var envVariable in StepContainer.Step.EnvironmentVariables)
                     processInfo.EnvironmentVariables[envVariable.Split('=')[0]] = envVariable.Split('=')[1];
                     
                 var process = Process.Start(processInfo);
 
-                if (!Step.FireAndForget) {
+                if (!StepContainer.Step.FireAndForget) {
                     process.BeginOutputReadLine();
                     process.BeginErrorReadLine();
                     process.OutputDataReceived += (sender, e) =>
@@ -274,6 +277,15 @@ namespace Ghoul.Presentation.Web.HostedServices {
                 
             });
             return exitCode;
+        }
+
+        private string GetArguments() {
+            return StepContainer.Step.CommandArguments
+                .Replace("{run_id}", Run.ID)
+                .Replace("{uuid}", Run.ID)
+                .Replace("{build_id}", Build.ID)
+                .Replace("{step_name}", StepContainer.Step.Name)
+                .Replace("{step_id}", StepContainer.StepIndex.ToString());
         }
     }
 
