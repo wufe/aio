@@ -8,6 +8,7 @@ import { diff } from 'deep-diff';
 import { Modal } from '../modal/modal';
 import { useModal } from '../modal/modal-hooks';
 import { TextualModalLayout } from '../modal/modal-layout/textual-modal-layout/textual-modal-layout';
+import { BuildTerminalLog } from './build-terminal-log/build-terminal-log';
 
 type TProps = {
     build: TBuild;
@@ -18,8 +19,7 @@ type TProps = {
 export const BuildSummary = React.memo((props: React.PropsWithChildren<TProps>) => {
 
     const [run, setRun] = React.useState<TRun>(null);
-    const logRef = React.useRef<HTMLDivElement>(null);
-
+    
     const { go } = useBuildPageLoad();
     const { getAll, remove } = useBuildAPI();
     const { getLatestRun, enqueueNewRun } = useBuildAPI();
@@ -38,11 +38,6 @@ export const BuildSummary = React.memo((props: React.PropsWithChildren<TProps>) 
                 .then(run => setRun(run));
         }
     }, [props.active]);
-
-    React.useEffect(() => {
-        if (logRef.current)
-            logRef.current.scrollTop = logRef.current.scrollHeight;
-    })
 
     const onEnqueueClick = () => {
         enqueueNewRun(props.build.id)
@@ -119,11 +114,7 @@ export const BuildSummary = React.memo((props: React.PropsWithChildren<TProps>) 
                     {run && run.logs.length > 0 && <>
                         <div className="__column-header">Log</div>
                         <div className="__column-content">
-                            <div className="__terminal-log" ref={logRef}>
-                                <code>
-                                    {run.logs.map((log, i) => <div key={i}>{log.content}</div>)}
-                                </code>
-                            </div>
+                            <BuildTerminalLog logs={run.logs} />
                         </div>
                     </>}
                 </div>
