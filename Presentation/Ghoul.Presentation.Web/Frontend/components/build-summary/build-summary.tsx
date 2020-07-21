@@ -43,7 +43,9 @@ export const BuildSummary = React.memo((props: React.PropsWithChildren<TProps>) 
         enqueueNewRun(props.build.id)
             .then(() => show(enqueueNewRunModal))
             .then(() => delay(1000))
-            .then(hide);
+            .then(hide)
+            .then(() => delay(1000))
+            .then(getAll);
     }
 
     const onDeleteClick = () => {

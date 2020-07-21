@@ -5,10 +5,19 @@ import { TGlobalState } from '~/state/reducer';
 import { TBuild } from '~/types';
 import { BuildRow } from '../build-row/build-row';
 import { useBuildAPI } from '~/components/pages/build/build-hook';
+import { diff } from 'deep-diff';
 
 export const BuildsList = React.memo((props: React.PropsWithChildren<{ builds: TBuild[] }>) => {
 
     const [active, setActive] = React.useState<string>(null);
+    
+    React.useEffect(() => {
+        const runningBuild = props.builds
+            .find(x => x.status === 'Running');
+        if (runningBuild && !active) {
+            setActive(runningBuild.id);
+        }
+    });
 
     return <div className="builds-list__component">
         <div className="__list">
@@ -20,4 +29,4 @@ export const BuildsList = React.memo((props: React.PropsWithChildren<{ builds: T
                 key={build.id} />)}
         </div>
     </div>;
-}, (prev, next) => prev.builds === next.builds);
+}, (prev, next) => !diff(prev.builds, next.builds));

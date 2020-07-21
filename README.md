@@ -41,3 +41,9 @@ They represent retrieval/write logic wrapped into objects.
 The commands will be responsible for CUD operations, while queries for read operations.
 
 They will be dispatched from the presentation layer and be performed on the application layer, which holds direct links to persistence and domain layers.
+
+
+### New name
+
+This project requires a new name.
+Maybe AIO (Automations, Integrations, Operations) ? 
