@@ -1,14 +1,21 @@
 @import "~/style/index";
 
 .dashboard__page {
-    .__header {
+
+    @include medium-up {
+        padding: 0 5em;
+    }
+    
+    > .__header {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        text-transform: uppercase;
         
-        h2 {
+        > h2 {
             font-family: inherit;
             font-weight: 100;
+            font-size: 1.1em;
         }
     }
 }

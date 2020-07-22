@@ -5,20 +5,33 @@
     @include container;
     padding: 20px 10px;
 
-    h1 {
-        font-family: inherit;
-        font-weight: 300;
-        cursor: pointer;
-        display: inline-block;
+    > .__header {
 
-        > * {
-            text-decoration: none;
-            color: $nord0;
+        height: 80px;
+        line-height: 80px;
+        padding: 0 2em;
+        margin-bottom: 20px;
+
+        > h1 {
+            font-family: inherit;
+            font-weight: 300;
             cursor: pointer;
-            user-select: none;
-            -ms-user-select: none;
-            -moz-user-select: none;
-            -webkit-user-select: none;
+            display: inline-block;
+            text-transform: uppercase;
+            font-size: 1.5em;
+            margin: 0;
+
+            > * {
+                text-decoration: none;
+                color: $nord0;
+                cursor: pointer;
+                user-select: none;
+                -ms-user-select: none;
+                -moz-user-select: none;
+                -webkit-user-select: none;
+            }
         }
     }
+
+    
 }

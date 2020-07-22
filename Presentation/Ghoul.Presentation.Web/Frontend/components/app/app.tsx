@@ -21,7 +21,9 @@ export const App = () => {
     }, []);
 
     return <div className="app__component">
-        <h1 onClick={onLogoClick} className="__logo">Ghoul</h1>
+        <div className="__header">
+            <h1 onClick={onLogoClick} className="__logo">Ghoul</h1>
+        </div>
         <Route exact path="/">
             <DashboardPage />
         </Route>
