@@ -10,11 +10,11 @@ namespace Aio.Presentation.Model.Build {
         [MaxLength(40)]
         public string Status { get; set; }
 
-        [Url]
+        // [Url]
         public string RepositoryURL { get; set; }
 
-        [MinLength(2)]
-        [MaxLength(40)]
+        // [MinLength(2)]
+        // [MaxLength(40)]
         public string RepositoryTrigger { get; set; }
     }
 }
