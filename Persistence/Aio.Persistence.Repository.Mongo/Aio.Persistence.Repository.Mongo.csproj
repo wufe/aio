@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.10.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Aio.Persistence.Repository.Interface\Aio.Persistence.Repository.Interface.csproj" />
+    <ProjectReference Include="..\Aio.Persistence.Model\Aio.Persistence.Model.csproj" />
+    <ProjectReference Include="..\Aio.Persistence.Database.Mongo\Aio.Persistence.Database.Mongo.csproj" />
+  </ItemGroup>
+
+</Project>

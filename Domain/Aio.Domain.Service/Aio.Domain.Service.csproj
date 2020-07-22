@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Aio.Domain.Entity\Aio.Domain.Entity.csproj" />
+    <ProjectReference Include="..\Aio.Domain.Repository.Interface\Aio.Domain.Repository.Interface.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+</Project>

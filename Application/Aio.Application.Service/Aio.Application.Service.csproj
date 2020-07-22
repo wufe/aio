@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\Aio.Domain.Entity\Aio.Domain.Entity.csproj" />
+    <ProjectReference Include="..\Aio.Application.Model\Aio.Application.Model.csproj" />
+    <ProjectReference Include="..\..\Persistence\Aio.Persistence.Repository.Interface\Aio.Persistence.Repository.Interface.csproj" />
+    <ProjectReference Include="..\..\Persistence\Aio.Persistence.Model\Aio.Persistence.Model.csproj" />
+    <ProjectReference Include="..\..\Domain\Aio.Domain.Service\Aio.Domain.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="automapper" Version="10.0.0" />
+    <PackageReference Include="mediatr" Version="8.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.5" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+</Project>

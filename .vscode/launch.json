@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/Presentation/Ghoul.Presentation.Web/bin/Debug/netcoreapp3.1/Ghoul.Presentation.Web.dll",
+            "program": "${workspaceFolder}/Presentation/Aio.Presentation.Web/bin/Debug/netcoreapp3.1/Aio.Presentation.Web.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/Presentation/Ghoul.Presentation.Web",
+            "cwd": "${workspaceFolder}/Presentation/Aio.Presentation.Web",
             "stopAtEntry": false,
             // "serverReadyAction": {
             //     "action": "openExternally",

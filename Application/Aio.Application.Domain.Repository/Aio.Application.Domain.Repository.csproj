@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\Aio.Domain.Entity\Aio.Domain.Entity.csproj" />
+    <ProjectReference Include="..\..\Domain\Aio.Domain.Repository.Interface\Aio.Domain.Repository.Interface.csproj" />
+    <ProjectReference Include="..\..\Persistence\Aio.Persistence.Repository.Interface\Aio.Persistence.Repository.Interface.csproj" />
+    <ProjectReference Include="..\..\Persistence\Aio.Persistence.Model\Aio.Persistence.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Automapper" Version="10.0.0" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+</Project>

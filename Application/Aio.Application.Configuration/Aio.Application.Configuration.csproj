@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Persistence\Aio.Persistence.Repository.Interface\Aio.Persistence.Repository.Interface.csproj" />
+    <ProjectReference Include="..\..\Persistence\Aio.Persistence.Repository.Mongo\Aio.Persistence.Repository.Mongo.csproj" />
+    <ProjectReference Include="..\..\Domain\Aio.Domain.Entity\Aio.Domain.Entity.csproj" />
+    <ProjectReference Include="..\Aio.Application.Model\Aio.Application.Model.csproj" />
+    <ProjectReference Include="..\Aio.Application.Domain.Repository\Aio.Application.Domain.Repository.csproj" />
+    <ProjectReference Include="..\..\Domain\Aio.Domain.Repository.Interface\Aio.Domain.Repository.Interface.csproj" />
+  </ItemGroup>
+
+</Project>
