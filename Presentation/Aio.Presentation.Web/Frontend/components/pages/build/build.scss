@@ -1,6 +1,11 @@
 @import "~/style/index";
 
 .build__page {
+
+    @include medium-up {
+        padding: 0 5em;
+    }
+
     > .__header {
         display: flex;
         justify-content: space-between;
@@ -12,6 +17,8 @@
 
             .__build-name {
                 font-weight: 200;
+                font-size: 1.1rem;
+                text-transform: uppercase;
             }
         }
     }
