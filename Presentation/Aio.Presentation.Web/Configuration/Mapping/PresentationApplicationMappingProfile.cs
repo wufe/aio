@@ -21,6 +21,7 @@ namespace Aio.Presentation.Web.Configuration.Mapping {
             CreateMap<UpdateBuildInputModel, UpdateBuildCommand>();
             CreateMap<CreateStepInputModel, CreateStepCommand>();
             CreateMap<UpdateStepInputModel, UpdateStepCommand>();
+            CreateMap<UpdateStepsOrderInputModel, UpdateStepsOrderCommand>();
         }
     }
 }

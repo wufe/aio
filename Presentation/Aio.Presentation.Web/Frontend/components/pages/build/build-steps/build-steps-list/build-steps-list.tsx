@@ -1,12 +1,14 @@
 import * as React from 'react';
 import './build-steps-list.scss';
 import { TStep } from '~/types';
+import { DragDropContext, Draggable, Droppable, DropResult, ResponderProvided } from 'react-beautiful-dnd';
 
 type TProps = {
     steps: TStep[];
     activeStepIndex: number;
     onNewStep: (name: string) => (Promise<any> | any);
     onStepClick?: (name: string) => any;
+    onStepsReordered: (startIndex: number, endIndex: number) => (Promise<any> | any);
 }
 
 export const BuildStepsList = (props: React.PropsWithChildren<TProps>) => {
@@ -42,11 +44,42 @@ export const BuildStepsList = (props: React.PropsWithChildren<TProps>) => {
             onStepClick(props.steps[0].name);
     });
 
+    
+
+    const onDragEnd = (result: DropResult, provided: ResponderProvided) => {
+        if (!result.destination)
+            return;
+
+        props.onStepsReordered(result.source.index, result.destination.index);
+    }
+
     return <div className="build-steps-list__component">
-        {props.steps.map((step, i) => <div
-            key={step.name}
-            onClick={() => onStepClick(step.name)}
-            className={`__step ${props.activeStepIndex === i ? '--active' : ''}`}>{step.name}</div>)}
+        <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="droppable">
+                {(provided, snapshot) => (
+                    <div
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}>
+
+                        {props.steps.map((step, i) =>
+                            (<Draggable key={step.name} draggableId={step.name} index={i}>
+                                {(provided, snapshot) => (
+                                    <div
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        key={step.name}
+                                        onClick={() => onStepClick(step.name)}
+                                        className={`__step ${props.activeStepIndex === i ? '--active' : ''}`}>{step.name}</div>
+                                )}
+                            </Draggable>))}
+                        {provided.placeholder}
+
+                    </div>
+                )}
+            </Droppable>
+        </DragDropContext>
+        
         <div className="__step --empty">
             <input type="text" placeholder="New step.." className={newStepError ? '--error' : ''}
                 onKeyUp={onNewStepKeyUp}

@@ -54,6 +54,12 @@ export const useBuildAPI = () => {
             .then(() => Axios.patch(`/api/build/${buildID}/step/${stepIndex}`, step))
             .finally(() => dispatch({ type: AppAction.SET_LOADING, payload: false }));
 
+    const updateStepsOrder = (buildID: string, startIndex: number, endIndex: number) =>
+        Promise.resolve()
+            .then(() => dispatch({ type: AppAction.SET_LOADING, payload: true }))
+            .then(() => Axios.post(`/api/build/${buildID}/step/order`, { startIndex, endIndex }))
+            .finally(() => dispatch({ type: AppAction.SET_LOADING, payload: false }));
+
     const getLatestRun = (buildID: string) =>
         Promise.resolve()
             .then(() => dispatch({ type: AppAction.SET_LOADING, payload: true }))
@@ -75,6 +81,7 @@ export const useBuildAPI = () => {
         addStep,
         deleteStep,
         updateStep,
+        updateStepsOrder,
         getLatestRun,
         enqueueNewRun
     };

@@ -9,6 +9,7 @@ type TProps = {
     onNewStep: (name: string) => Promise<any>;
     onStepUpdate: (step: TStep, stepIndex: number) => (Promise<any> | any);
     onStepDeletion: (stepIndex: number) => (Promise<any> | any);
+    onStepsReordered: (startIndex: number, endIndex: number) => (Promise<any> | any);
 }
 
 export const BuildSteps = (props: React.PropsWithChildren<TProps>) => {
@@ -34,12 +35,22 @@ export const BuildSteps = (props: React.PropsWithChildren<TProps>) => {
         return props.onStepDeletion(activeStepIndex);
     }
 
+    const onStepsReordered = (startIndex: number, endIndex: number) => {
+        if (activeStepIndex === startIndex) {
+            setActiveStepIndex(endIndex);
+        } else if (activeStepIndex === endIndex) {
+            setActiveStepIndex(startIndex);
+        }
+        return props.onStepsReordered(startIndex, endIndex);
+    };
+
     return <div className="build-steps__component">
         <BuildStepsList
             activeStepIndex={activeStepIndex}
             steps={props.steps}
             onNewStep={props.onNewStep}
-            onStepClick={onStepClick} />
+            onStepClick={onStepClick}
+            onStepsReordered={onStepsReordered} />
         {activeStepIndex > -1 && props.steps[activeStepIndex] &&
             <BuildStepConfiguration
                 step={props.steps[activeStepIndex]}

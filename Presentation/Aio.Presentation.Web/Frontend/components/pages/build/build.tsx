@@ -17,8 +17,9 @@ export const Build = () => {
 
     const build = useSelector<TGlobalState, TBuild>(x => x.build.current);
     const [buildDraft, setBuildDraft] = React.useState({ ...build });
+    const [stepsDraft, setStepsDraft] = React.useState<TStep[]>([]);
     
-    const { get, update, addStep, updateStep, deleteStep } = useBuildAPI();
+    const { get, update, addStep, updateStep, deleteStep, updateStepsOrder } = useBuildAPI();
 
     const onNewStep = async (name: string) => {
         await addStep(build.id, name);
@@ -40,6 +41,19 @@ export const Build = () => {
         return await get(buildID);
     }
 
+    const reorder = <T extends unknown>(list: T[], startIndex: number, endIndex: number) => {
+        const result = Array.from(list);
+        const [removed] = result.splice(startIndex, 1);
+        result.splice(endIndex, 0, removed);
+        return result;
+    }
+
+    const onStepsReordered = async (startIndex: number, endIndex: number) => {
+        setStepsDraft(reorder(stepsDraft, startIndex, endIndex));
+        await updateStepsOrder(build.id, startIndex, endIndex);
+        return await get(buildID);
+    }
+
     React.useEffect(() => {
 
         if (build === null || build.id !== buildID) {
@@ -50,6 +64,7 @@ export const Build = () => {
                 ...build,
                 steps: build.steps.map(step => ({ ...step }))
             });
+            setStepsDraft([ ...build.steps ]);
         }
 
     }, [build]);
@@ -63,10 +78,11 @@ export const Build = () => {
                 build={buildDraft}
                 onBuildUpdate={onBuildUpdate} />
             <BuildSteps
-                steps={build && build.steps || []}
+                steps={stepsDraft}
                 onNewStep={onNewStep}
                 onStepDeletion={onStepDeletion}
-                onStepUpdate={onStepUpdate} />
+                onStepUpdate={onStepUpdate}
+                onStepsReordered={onStepsReordered} />
         </div>
     </div>
 }

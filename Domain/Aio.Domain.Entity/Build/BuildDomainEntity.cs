@@ -50,6 +50,20 @@ namespace Aio.Domain.Entity.Build {
             return this;
         }
 
+        public BuildDomainEntity UpdateStepsOrder(int startIndex, int endIndex)
+        {
+            if (Steps.Count() <= startIndex || Steps.Count() <= endIndex)
+                throw new ArgumentException($"Invalid steps indices.");
+
+            var steps = Steps.ToArray();
+            var tmpStep = steps[startIndex];
+            steps[startIndex] = steps[endIndex];
+            steps[endIndex] = tmpStep;
+            Steps = steps;
+            
+            return this;
+        }
+
         public BuildDomainEntity RunStep(int stepIndex)
         {
             var step = Steps.ElementAt(stepIndex);

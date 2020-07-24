@@ -111,6 +111,15 @@ namespace Aio.Presentation.Web.Controllers.API.Build {
             return BadRequest(ModelState);
         }
 
+        [HttpPost("{buildID}/step/order")]
+        public async Task<IActionResult> UpdateStepsOrder(string buildID, [FromBody] UpdateStepsOrderInputModel inputModel) {
+            if (!TryValidateModel(inputModel))
+                return BadRequest(ModelState);
+            var command = _mapper.Map<UpdateStepsOrderInputModel, UpdateStepsOrderCommand>(inputModel, new UpdateStepsOrderCommand(buildID));
+            await _mediator.Send(command);
+            return Ok();
+        }
+
         [HttpDelete("{buildID}/step/{stepIndex}")]
         public async Task<IActionResult> DeleteStep(string buildID, int stepIndex)
         {
