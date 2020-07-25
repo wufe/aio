@@ -54,7 +54,7 @@ const BuildCreationModal = () => {
                         onChange={e => setName(e.target.value)}
                         value={name} />
                 </label>
-                <div className="__section">
+                {/* <div className="__section">
                     <span className="__section-header">Repository settings</span>
                     <span className="__section-note">(optional)</span>
                     <label htmlFor="repositoryURL">
@@ -65,7 +65,7 @@ const BuildCreationModal = () => {
                             value={repositoryURL} />
                     </label>
                     
-                </div>
+                </div> */}
                 <div className="__actions">
                     <button className="--danger" disabled={!formEnabled} onClick={e => cancel(e)}>Cancel</button>
                     <button className="--success" disabled={!formEnabled}>Go ahead</button>
