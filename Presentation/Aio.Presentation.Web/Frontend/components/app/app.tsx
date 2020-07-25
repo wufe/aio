@@ -9,7 +9,7 @@ import { useBuildAPI, usePolling } from '../pages/build/build-hook';
 export const App = () => {
 
     const { getAll } = useBuildAPI();
-    usePolling(getAll, 2000);
+    usePolling(getAll, 10000);
 
     const { go } = useDashboardPageLoad();
     const DashboardPage = loadable(() => import('~/components/pages/dashboard/dashboard'));

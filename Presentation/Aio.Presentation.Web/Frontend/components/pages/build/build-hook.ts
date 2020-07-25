@@ -30,6 +30,12 @@ export const useBuildAPI = () => {
             .then(() => Axios.patch(`/api/build/${buildID}`, build))
             .finally(() => dispatch({ type: AppAction.SET_LOADING, payload: false }));
 
+    const updateBuildsOrder = (startIndex: number, endIndex: number) =>
+        Promise.resolve()
+            .then(() => dispatch({ type: AppAction.SET_LOADING, payload: true }))
+            .then(() => Axios.post(`/api/build/order`, { startIndex, endIndex }))
+            .finally(() => dispatch({ type: AppAction.SET_LOADING, payload: false }));
+
     const remove = (buildID: string) =>
         Promise.resolve()
             .then(() => dispatch({ type: AppAction.SET_LOADING, payload: true }))
@@ -77,6 +83,7 @@ export const useBuildAPI = () => {
         getAll,
         get,
         update,
+        updateBuildsOrder,
         remove,
         addStep,
         deleteStep,

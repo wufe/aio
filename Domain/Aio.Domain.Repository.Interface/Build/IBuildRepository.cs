@@ -10,5 +10,7 @@ namespace Aio.Domain.Repository.Interface.Build
         bool BuildExistsByName(string name);
         bool BuildExistsByID(string name);
         BuildRunContainer GetNextIdleRun();
+        IEnumerable<BuildDomainEntity> GetAllBuilds();
+        int GetHighestBuildOrder();
     }
 }

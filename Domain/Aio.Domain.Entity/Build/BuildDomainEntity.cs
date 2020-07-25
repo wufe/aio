@@ -16,6 +16,7 @@ namespace Aio.Domain.Entity.Build {
         public string Name { get; private set; }
         public BuildStatus Status { get; private set; }
         public BuildRepositoryDomainEntity Repository { get; private set; }
+        public int? Order { get; private set; }
         public IEnumerable<BuildStepDomainEntity> Steps { get; private set; }
 
         public DateTime CreatedAt { get; private set; }
@@ -33,6 +34,11 @@ namespace Aio.Domain.Entity.Build {
                 UpdatedAt = DateTime.Now,
                 Steps = new List<BuildStepDomainEntity>()
             };
+        }
+
+        public BuildDomainEntity SetOrder(int order) {
+            Order = order;
+            return this;
         }
 
         public BuildDomainEntity SetName(string name) {
@@ -55,10 +61,16 @@ namespace Aio.Domain.Entity.Build {
             if (Steps.Count() <= startIndex || Steps.Count() <= endIndex)
                 throw new ArgumentException($"Invalid steps indices.");
 
-            var steps = Steps.ToArray();
+            var steps = Steps.ToList();
+
             var tmpStep = steps[startIndex];
-            steps[startIndex] = steps[endIndex];
-            steps[endIndex] = tmpStep;
+
+            steps.RemoveAt(startIndex);
+            steps.Insert(endIndex, tmpStep);
+
+            
+            // steps[startIndex] = steps[endIndex];
+            // steps[endIndex] = tmpStep;
             Steps = steps;
             
             return this;

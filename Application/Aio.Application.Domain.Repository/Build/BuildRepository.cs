@@ -7,6 +7,7 @@ using Aio.Domain.Entity.Build.Containers;
 using Aio.Domain.Repository.Interface.Build;
 using Aio.Persistence.Model;
 using Aio.Persistence.Repository.Interface;
+using System;
 
 namespace Aio.Application.Domain.Repository.Build {
     public class BuildRepository : IBuildRepository
@@ -63,6 +64,22 @@ namespace Aio.Application.Domain.Repository.Build {
             var buildDomainEntity = _mapper.Map<BuildDomainEntity>(buildPersistenceModel);
 
             return new BuildRunContainer(buildDomainEntity, runDomainEntity);
+        }
+
+        public IEnumerable<BuildDomainEntity> GetAllBuilds() {
+            var buildPersistenceModels = _buildRepository
+                    .FindAll()
+                    .OrderBy(b => b.Order)
+                    .ToList();
+            var buildDomainEntities = _mapper.Map<BuildDomainEntity[]>(buildPersistenceModels);
+            return buildDomainEntities;
+        }
+
+        public int GetHighestBuildOrder() {
+            return _buildRepository
+                .FindAll()
+                .OrderByDescending(b => b.Order)
+                .FirstOrDefault()?.Order ?? 0;
         }
     }
 }

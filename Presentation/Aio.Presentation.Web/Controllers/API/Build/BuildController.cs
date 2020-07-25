@@ -73,6 +73,15 @@ namespace Aio.Presentation.Web.Controllers.API.Build {
             return BadRequest(ModelState);
         }
 
+        [HttpPost("order")]
+        public async Task<IActionResult> UpdateBuildsOrder([FromBody] UpdateBuildsOrderInputModel inputModel) {
+            if (!TryValidateModel(inputModel))
+                return BadRequest(ModelState);
+            var command = _mapper.Map<UpdateBuildsOrderCommand>(inputModel);
+            await _mediator.Send(command);
+            return Ok();
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBuild(string id) {
             try {

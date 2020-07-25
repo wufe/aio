@@ -8,6 +8,7 @@ namespace Aio.Application.Model.Build {
         public string Status { get; set; }
         public string RepositoryURL { get; set; }
         public string RepositoryTrigger { get; set; }
+        public int? Order { get; private set; }
         public IEnumerable<BuildStepApplicationModel> Steps { get; set; }
 
         public DateTime CreatedAt { get; private set; }

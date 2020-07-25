@@ -13,6 +13,7 @@ namespace Aio.Persistence.Model
         public string ID { get; set; }
         public string Name { get; set; }
         public string Status { get; set; }
+        public int? Order { get; private set; }
         public BuildRepositoryPersistenceModel Repository { get; set; }
         public IEnumerable<BuildStepPersistenceModel> Steps { get; set; } = new List<BuildStepPersistenceModel>();
 

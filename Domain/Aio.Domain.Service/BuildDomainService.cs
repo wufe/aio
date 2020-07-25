@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Aio.Domain.Entity;
 using Aio.Domain.Entity.Build;
@@ -56,6 +57,22 @@ namespace Aio.Domain.Service {
             build.Stop(run);
             run.Stop(build);
             return new BuildRunContainer(build, run);
+        }
+
+        public IEnumerable<BuildDomainEntity> UpdateBuildsOrder(int startIndex, int endIndex) {
+
+            var buildDomainEntities = _buildRepository.GetAllBuilds().ToList();
+
+            var swappingBuildDomainEntity = buildDomainEntities.ElementAt(startIndex);
+
+            buildDomainEntities.RemoveAt(startIndex);
+            buildDomainEntities.Insert(endIndex, swappingBuildDomainEntity);
+
+            // Fix order
+            for (int i = 0; i < buildDomainEntities.Count; i++)
+                buildDomainEntities[i].SetOrder(i);
+
+            return buildDomainEntities;
         }
 
     }

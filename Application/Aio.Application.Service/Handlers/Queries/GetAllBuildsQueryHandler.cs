@@ -34,6 +34,7 @@ namespace Aio.Application.Service.Handlers.Queries {
         {
             var buildApplicationModels = _buildRepository
                 .FindAll()
+                .OrderBy(b => b.Order)
                 .ProjectTo<BaseBuildApplicationModel>(_mapper.ConfigurationProvider);
 
             // _logger.LogTrace(buildApplicationModels.ToString());
