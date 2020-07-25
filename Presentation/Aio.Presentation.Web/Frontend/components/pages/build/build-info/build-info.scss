@@ -40,7 +40,7 @@
                 }
 
                 input[type=text] {
-                    @include neumorphistic-element($primary-color, 'flat', 1, 5px);
+                    border-radius: 5px;
                     border: none;
                     padding: 7px 15px;
                     outline: none;
@@ -48,7 +48,7 @@
                 }
 
                 select {
-                    @include neumorphistic-element($primary-color, 'flat', 1, 5px);
+                    border-radius: 5px;
                     border: none;
                     padding: 7px 15px;
                     outline: none;

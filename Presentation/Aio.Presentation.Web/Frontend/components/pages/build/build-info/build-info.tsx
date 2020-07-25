@@ -54,7 +54,7 @@ export const BuildInfo = (props: React.PropsWithChildren<TProps>) => {
             <div className="__content">
                 <label htmlFor="name">
                     <span>Name</span>
-                    <input type="text" id="name"
+                    <input className="neui-element-flat" type="text" id="name"
                         value={buildDraft.name || ''}
                         onChange={e => setBuildField('name')(e.target.value)} />
                 </label>
@@ -65,13 +65,13 @@ export const BuildInfo = (props: React.PropsWithChildren<TProps>) => {
             <div className="__content">
                 <label htmlFor="repositoryURL" className="--grid">
                     <span>URL</span>
-                    <input type="text" id="repositoryURL"
+                    <input tclassName="neui-element-flat" ype="text" id="repositoryURL"
                         value={buildDraft.repositoryURL || ''}
                         onChange={e => setBuildField('repositoryURL')(e.target.value)} />
                 </label>
                 <label htmlFor="repositoryEvent" className="--grid">
                     <span>Trigger</span>
-                    <select id="repositoryEvent"
+                    <select className="neui-element-flat" id="repositoryEvent"
                         value={buildDraft.repositoryTrigger}
                         onChange={e => setBuildField('repositoryTrigger')(e.target.value)}>
                         {events.map(e => <option key={e} value={e}>{e}</option>)}

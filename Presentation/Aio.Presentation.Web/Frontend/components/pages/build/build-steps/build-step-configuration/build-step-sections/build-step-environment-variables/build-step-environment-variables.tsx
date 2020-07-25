@@ -47,7 +47,7 @@ export const BuildStepEnvironmentVariables = (props: React.PropsWithChildren<TPr
     return <>
         {environmentVariablesDraft.map((envVar, i) =>
             <span className="__input-container" key={i}>
-                <input type="text" className="--l --deletable"
+                <input type="text" className="neui-element-flat --l --deletable"
                     onChange={e => onEnvironmentVariableUpdated(i)(e.target.value)}
                     value={envVar} />
                 <div className="__input-action-icon-container">
@@ -55,7 +55,7 @@ export const BuildStepEnvironmentVariables = (props: React.PropsWithChildren<TPr
                 </div>
             </span>)}
         <span className="__input-container">
-            <input type="text" className="--l --empty" placeholder="key=value .."
+            <input type="text" className="neui-element-flat --l --empty" placeholder="key=value .."
                 disabled={!newEnvironmentVariableEnabled}
                 value={newEnvironmentVariable}
                 onChange={e => setNewEnvironmentVariable(e.target.value)}

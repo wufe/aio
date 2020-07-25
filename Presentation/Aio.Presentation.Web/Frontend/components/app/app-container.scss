@@ -44,3 +44,21 @@ body {
         filter: blur(7px);
     }
 }
+
+/** Shared classes **/
+
+.neui-element-flat {
+    @include neumorphistic-element($primary-color, 'flat');
+}
+
+.neui-element-pressed {
+    @include neumorphistic-element($primary-color, 'pressed');
+}
+
+.neui-element-concave {
+    @include neumorphistic-element($primary-color, 'concave');
+}
+
+.neui-element-convex {
+    @include neumorphistic-element($primary-color, 'convex');
+}

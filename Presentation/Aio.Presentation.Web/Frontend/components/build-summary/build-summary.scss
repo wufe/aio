@@ -62,11 +62,11 @@
 
                     .__action {
                         border: none;
-                        background: none;
+                        // background: none;
                         cursor: pointer;
                         user-select: none;
-                            -webkit-user-select: none;
-                            -moz-user-select: none;
+                        -webkit-user-select: none;
+                        -moz-user-select: none;
 
                         > * {
                             z-index: 1;
@@ -75,7 +75,6 @@
 
                     @include medium-down {
                         .__action {
-                            @include neumorphistic-element($primary-color, 'flat', 1, 0);
                             height: 100%;
                             overflow: hidden;
                             border-radius: 0;
@@ -87,32 +86,31 @@
                         .__action {
                             margin: 0px 5px;
 
-                            @include neumorphistic-element($primary-color, 'flat', .5, .5em) {
-                                
-                                padding: .8em 1.7em;
-                                border: none;
-                                background: flat-background($primary-color);
-                                font-size: .9em;
-                                
-                                cursor: pointer;
-                                outline: none;
-                                white-space: nowrap;
-                            
-                                &:hover {
-                                    &:not([disabled]) {
-                                        @include neui-button-hover($primary-color);
-                                    }
-                                }
-                            
-                                &:active {
-                                    @include neui-button-active($primary-color);
-                                }
+                            border-radius: .5em;
 
-                                &[disabled] {
-                                    opacity: .7;
-                                    cursor: initial;
+                            padding: .8em 1.7em;
+                            border: none;
+                            background: flat-background($primary-color);
+                            font-size: .9em;
+                            
+                            cursor: pointer;
+                            outline: none;
+                            white-space: nowrap;
+                        
+                            &:hover {
+                                &:not([disabled]) {
+                                    @include neui-button-hover($primary-color);
                                 }
-                            };
+                            }
+                        
+                            &:active {
+                                @include neui-button-active($primary-color);
+                            }
+
+                            &[disabled] {
+                                opacity: .7;
+                                cursor: initial;
+                            }
                         }
                     }
 
@@ -178,7 +176,7 @@
         .__terminal-log {
             height: 100%;
             width: 100%;
-            @include neumorphistic-element($terminal-background-color, 'pressed', 1, 10px);
+            @include neumorphistic-element($terminal-background-color, 'pressed', 1, .3em);
             padding: 10px;
             max-height: 300px;
             overflow: auto;

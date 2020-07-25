@@ -81,7 +81,7 @@ export const BuildStepsList = (props: React.PropsWithChildren<TProps>) => {
         </DragDropContext>
         
         <div className="__step --empty">
-            <input type="text" placeholder="New step.." className={newStepError ? '--error' : ''}
+            <input type="text" placeholder="New step.." className={`${newStepError ? '--error' : ''}`}
                 onKeyUp={onNewStepKeyUp}
                 disabled={!newStepEnabled}
                 value={newStepValue}

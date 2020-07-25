@@ -54,14 +54,14 @@ export const BuildStepConfiguration = (props: React.PropsWithChildren<TProps>) =
             .then(() => props.onStepDeletion());
     }
 
-    return <div className="build-step-configuration__component">
+    return <div className="build-step-configuration__component neui-element-pressed">
         <div className="__section">
             <div className="__header">Command</div>
             <div className="__content">
                 <label>
                     <span>Executable</span>
                 </label>
-                <input type="text" className="--l" id="executable"
+                <input type="text" className="neui-element-flat --l" id="executable"
                     onChange={e => setDraftField('commandExecutable')(e.target.value)}
                     value={stepDraft.commandExecutable || ''} />
 
@@ -69,7 +69,7 @@ export const BuildStepConfiguration = (props: React.PropsWithChildren<TProps>) =
                     <span>Arguments</span>
                 </label>
                 <span className="__input-container">
-                    <input type="text" className="--l --suggestion-w-200" id="arguments"
+                    <input type="text" className="neui-element-flat --l --suggestion-w-200" id="arguments"
                         onChange={e => setDraftField('commandArguments')(e.target.value)}
                         value={stepDraft.commandArguments || ''} />
                     <div className="__input-action-suggestion-container">
@@ -95,7 +95,7 @@ export const BuildStepConfiguration = (props: React.PropsWithChildren<TProps>) =
                     <label>
                         <span>Working directory</span>
                     </label>
-                    <input type="text" className="--l" id="cwd"
+                    <input type="text" className="neui-element-flat --l" id="cwd"
                         onChange={e => setDraftField('workingDirectory')(e.target.value)}
                         value={stepDraft.workingDirectory} />
                 </div>

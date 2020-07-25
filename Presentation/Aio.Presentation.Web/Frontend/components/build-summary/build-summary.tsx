@@ -84,13 +84,13 @@ export const BuildSummary = React.memo((props: React.PropsWithChildren<TProps>) 
                 </div>
                 <div className="__column __actions-column">
                     <div className="__actions-container">
-                        <button className="__action" onClick={onEnqueueClick}>
+                        <button className="neui-element-flat __action" onClick={onEnqueueClick}>
                             <FaPlay color="#3b9c3a" />
                         </button>
-                        <button className="__action" onClick={onEditClick}>
+                        <button className="neui-element-flat __action" onClick={onEditClick}>
                             <FaPencilAlt />
                         </button>
-                        <button className="__action" onClick={onDeleteClick}>
+                        <button className="neui-element-flat __action" onClick={onDeleteClick}>
                             <FaTrashAlt />
                         </button>
                     </div>

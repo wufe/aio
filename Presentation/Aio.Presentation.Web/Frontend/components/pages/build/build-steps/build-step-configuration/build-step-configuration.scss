@@ -2,7 +2,6 @@
 
 .build-step-configuration__component {
     flex: 3;
-    @include neumorphistic-element($primary-color, 'pressed', 1, 15px);
     margin: 5px;
     padding: 20px 30px;
     position: relative;
@@ -81,7 +80,7 @@
             }
 
             input[type=text] {
-                @include neumorphistic-element($primary-color, 'flat', .4, 5px);
+                border-radius: 5px;
                 border: none;
                 padding: 10px 20px;
                 outline: none;

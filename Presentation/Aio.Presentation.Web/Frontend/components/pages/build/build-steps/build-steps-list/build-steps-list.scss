@@ -23,7 +23,7 @@
         }
 
         &.--active {
-            @include neumorphistic-element($primary-color, 'pressed');
+            @include pressed($primary-color);
             border-radius: 8px;
             font-size: .8em;
             opacity: 1;
@@ -32,7 +32,7 @@
 
         &:not(.--active):not(.--empty) {
             &:hover {
-                @include neumorphistic-element($primary-color, 'flat');
+                @include flat($primary-color);
                 border-radius: 8px;
                 opacity: 1;
                 
@@ -42,7 +42,7 @@
         &.--empty {
             opacity: .8;
             > input {
-                @include neumorphistic-element($primary-color, 'flat-noshadow');
+                background: none;
                 border: 0;
                 outline: none;
                 font-weight: 400;
