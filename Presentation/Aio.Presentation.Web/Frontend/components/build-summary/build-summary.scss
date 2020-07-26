@@ -176,7 +176,7 @@
         .__terminal-log {
             height: 100%;
             width: 100%;
-            @include neumorphistic-element($terminal-background-color, 'pressed', 1, .3em);
+            @include neumorphistic-element($terminal-background-color, $shape: 'pressed', $border-radius: .3em);
             padding: 10px;
             max-height: 300px;
             overflow: auto;
@@ -209,7 +209,7 @@
                 }
 
                 &.--active {
-                    @include neumorphistic-element($primary-color, 'convex', 1, 3px);
+                    @include neumorphistic-element($primary-color, $shape: 'convex', $border-radius: 3px);
                     font-weight: 400;
 
                     &::after, &::before {

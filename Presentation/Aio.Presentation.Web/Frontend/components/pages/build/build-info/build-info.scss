@@ -2,7 +2,7 @@
 
 .build-info__component {
     margin: 5px;
-    @include neumorphistic-element($primary-color, 'convex', 1, 15px);
+    @include neumorphistic-element($primary-color, $shape: 'convex', $border-radius: 15px);
     padding: 20px;
     display: flex;
     flex-wrap: wrap;
