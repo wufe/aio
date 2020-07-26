@@ -62,3 +62,67 @@ body {
 .neui-element-convex {
     @include neumorphistic-element($primary-color, 'convex');
 }
+
+.neui-button {
+    @include uppercase();
+    margin: 5px;
+    font-family: inherit;
+    padding: 8px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    box-shadow: flat-shadow($primary-color);
+    &:hover {
+        @include convex($primary-color);
+    }
+
+    &:active {
+        @include pressed($primary-color);
+    }
+
+    &.--success {
+        @include flat-noshadow($nord14);
+        color: white;
+
+        &:hover {
+            @include convex($nord14, $shadow-offset: 8px, $shadow-alpha: .5);
+        }
+
+        &:active {
+            @include pressed($nord14);
+        }
+    }
+
+    &.--danger {
+        @include flat-noshadow($nord11);
+        color: white;
+
+        &:hover {
+            @include convex($nord11, $shadow-offset: 8px, $shadow-alpha: .5);
+        }
+
+        &:active {
+            @include pressed($nord11);
+        }
+    }
+}
+
+.modal {
+    padding: 10px 40px 0 40px;
+    min-height: 200px;
+    border-radius: 8px;
+    @include flat-noshadow(darken($primary-color, 0%));
+    box-shadow: 0 0 20px lighten($nord3, 10%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    > .__header {
+        h3 {
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+    }
+}

@@ -7,7 +7,7 @@ import { useBuildPageLoad, useBuildAPI, usePolling, delay } from '../pages/build
 import { diff } from 'deep-diff';
 import { Modal } from '../modal/modal';
 import { useModal } from '../modal/modal-hooks';
-import { TextualModalLayout } from '../modal/modal-layout/textual-modal-layout/textual-modal-layout';
+import { GenericModalLayout } from '../modal/modal-layout/textual-modal-layout/generic-modal-layout';
 import { BuildTerminalLog } from './build-terminal-log/build-terminal-log';
 
 type TProps = {
@@ -64,12 +64,12 @@ export const BuildSummary = React.memo((props: React.PropsWithChildren<TProps>) 
     return <div className="build__component">
         <Modal name={enqueueNewRunModal}>Build enqueued.</Modal>
         <Modal name={deleteBuildModal}>
-            <TextualModalLayout actionsRenderer={() => <>
-                <div className="__action" onClick={hide}>Nevermind</div>
-                <div className="__action --danger" onClick={onDeleteConfirm}>Yea, do it</div>
+            <GenericModalLayout title="Delete build" actionsRenderer={() => <>
+                <button type="button" className="neui-button __action" onClick={hide}>Nevermind</button>
+                <button type="button" className="neui-button __action --danger" onClick={onDeleteConfirm}>Yea, do it</button>
             </>}>
                 You sure? Delete? Really?
-            </TextualModalLayout>
+            </GenericModalLayout>
             
         </Modal> {/*Sure, go on*/}
         <div className="__header">

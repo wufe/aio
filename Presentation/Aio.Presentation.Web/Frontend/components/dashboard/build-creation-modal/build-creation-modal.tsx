@@ -42,9 +42,9 @@ const BuildCreationModal = () => {
     }
 
     return <Modal name={modalName}>
-        <div className="build-creation__modal">
+        <div className="modal build-creation__modal">
             <header className="__header">
-                <h3>Build creation - Wizard</h3>
+                <h3>Create build</h3>
             </header>
             <form onSubmit={e => save(e)}>
                 <label htmlFor="name">
@@ -54,21 +54,9 @@ const BuildCreationModal = () => {
                         onChange={e => setName(e.target.value)}
                         value={name} />
                 </label>
-                {/* <div className="__section">
-                    <span className="__section-header">Repository settings</span>
-                    <span className="__section-note">(optional)</span>
-                    <label htmlFor="repositoryURL">
-                        <span>URL</span>
-                        <input type="text" name="repositoryURL" id="repositoryURL" placeholder="https://github.com/wufe/aio"
-                            disabled={!formEnabled}
-                            onChange={e => setRepositoryURL(e.target.value)}
-                            value={repositoryURL} />
-                    </label>
-                    
-                </div> */}
                 <div className="__actions">
-                    <button className="--danger" disabled={!formEnabled} onClick={e => cancel(e)}>Cancel</button>
-                    <button className="--success" disabled={!formEnabled}>Go ahead</button>
+                    <button type="button" className="neui-button" disabled={!formEnabled} onClick={e => cancel(e)}>Cancel</button>
+                    <input type="submit" className="neui-button --success" disabled={!formEnabled} value="Go ahead" />
                 </div>
             </form>
         </div>

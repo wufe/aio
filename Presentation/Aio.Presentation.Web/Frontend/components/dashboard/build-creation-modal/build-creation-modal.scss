@@ -1,21 +1,6 @@
 @import "~/style/index";
 
 .build-creation__modal {
-    padding: 5px 20px;
-    min-height: 200px;
-    border-radius: 8px;
-    @include flat(darken($primary-color, 0%));
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-
-    > .__header {
-        h3 {
-            font-weight: 400;
-        }
-    }
-
     > form {
         width: 100%;
         padding: 20px;
@@ -68,8 +53,7 @@
             // #region Neui input text
             border-radius: 8px;
             color: get-text-color($primary-color);
-            background: concave-background(lighten($primary-color, 3%));
-            box-shadow: concave-shadow($primary-color);
+            @include flat($primary-color);
             // #endregion
 
             border: none;
@@ -88,21 +72,6 @@
             width: 100%;
             display: flex;
             justify-content: flex-end;
-            
-            > button {
-                @include neui-button();
-                margin: 5px;
-                font-family: inherit;
-                padding: 8px 20px;
-
-                &.--success {
-                    border: 2px solid $nord14;
-                }
-
-                &.--danger {
-                    border: 2px solid $nord11;
-                }
-            }
         }
     }
 }
