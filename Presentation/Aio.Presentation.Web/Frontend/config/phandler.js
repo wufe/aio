@@ -1,4 +1,4 @@
-const { spawn } = require('child_process');
+const spawn = require('cross-spawn');
 const { promisify } = require('util');
 const { readFile, writeFile, exists } = require('fs');
 const fkill = require('fkill');
@@ -11,6 +11,7 @@ const existsPromise = promisify(exists);
 const cwd = process.cwd();
 
 (async () => {
+
     if (process.argv.length <= 2) {
         console.log('Usage: node phandler.js <app> [<arg>, ..]')
         process.exit(1);
