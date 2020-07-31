@@ -2,18 +2,12 @@ import Axios from 'axios';
 import { TBuild } from '~/types';
 import { AppAction } from '~/state/app/app-state';
 import { useDispatch } from 'react-redux';
+import { useBuildAPI } from '~/components/pages/build/build-hook';
 
 export const useBuildCreation = () => {
     const dispatch = useDispatch();
+    const { save } = useBuildAPI();
     return {
-        saveBuild: (build: Partial<TBuild>) => new Promise((resolve, reject) => {
-            dispatch({ type: AppAction.SET_LOADING, payload: true });
-            Axios.post(`/api/build/`, build)
-                .then(resolve)
-                .catch(reject)
-                .finally(() => {
-                    dispatch({ type: AppAction.SET_LOADING, payload: false });
-                })
-        })
+        saveBuild: (build: Partial<TBuild>) => save(build)
     };
 }

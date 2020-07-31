@@ -23,6 +23,13 @@ export const useBuildAPI = () => {
         // return Identity.Instance.manager.signinPopup();
         throw error;
     }
+
+    const save = (build: Partial<TBuild>) =>
+        Promise.resolve()
+            .then(() => dispatch({ type: AppAction.SET_LOADING, payload: true }))
+            .then(() => Axios.post(`/api/build/`, build, getRequestConfigByToken()))
+            .catch(onException)
+            .finally(() => dispatch({ type: AppAction.SET_LOADING, payload: false }));
     
     const getAll = () =>
         Promise.resolve()
@@ -106,7 +113,8 @@ export const useBuildAPI = () => {
         updateStep,
         updateStepsOrder,
         getLatestRun,
-        enqueueNewRun
+        enqueueNewRun,
+        save
     };
 }
 
