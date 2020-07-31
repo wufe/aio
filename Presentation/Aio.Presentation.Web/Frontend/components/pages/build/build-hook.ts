@@ -99,7 +99,7 @@ export const useBuildAPI = () => {
     const enqueueNewRun = (buildID: string) =>
         Promise.resolve()
             .then(() => dispatch({ type: AppAction.SET_LOADING, payload: true }))
-            .then(() => Axios.post(`/api/build/${buildID}/run`, getRequestConfigByToken()))
+            .then(() => Axios.post(`/api/build/${buildID}/run`, {}, getRequestConfigByToken()))
             .finally(() => dispatch({ type: AppAction.SET_LOADING, payload: false }));
 
     return {
