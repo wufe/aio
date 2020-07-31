@@ -10,10 +10,12 @@ using Aio.Presentation.Model;
 using Aio.Presentation.Model.Build;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Aio.Presentation.Web.Controllers.API.Build {
 
     [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
     public class BuildController : BaseAPIController
     {

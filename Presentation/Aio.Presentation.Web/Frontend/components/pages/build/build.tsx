@@ -85,4 +85,6 @@ export const Build = () => {
                 onStepsReordered={onStepsReordered} />
         </div>
     </div>
-}
+};
+
+export default Build;

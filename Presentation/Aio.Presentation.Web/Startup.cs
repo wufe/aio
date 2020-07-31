@@ -1,4 +1,6 @@
+using System;
 using System.IO;
+using System.Threading.Tasks;
 using Aio.Application.Configuration.DI;
 using Aio.Application.Model;
 using Aio.Application.Model.Queries;
@@ -10,22 +12,26 @@ using Aio.Presentation.Web.HostedServices;
 using Aio.Web.Configuration;
 using Aio.Web.Middleware;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Aio.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Environment { get; set; }
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -34,6 +40,36 @@ namespace Aio.Web
             services.AddControllersWithViews();
             services.AddPresentationMappings();
             services.AddBuildRunner();
+
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+                    {
+                        if (Environment.IsDevelopment()) {
+                            options.RequireHttpsMetadata = false;
+                        }
+
+                        options.Events = new JwtBearerEvents
+                        {
+                            OnAuthenticationFailed = context =>
+                            {
+                                Console.WriteLine(context.Exception.Message);
+                                //Log failed authentications
+                                return Task.CompletedTask;
+                            },
+                            OnTokenValidated = context =>
+                            {
+                                //Log successful authentications
+                                return Task.CompletedTask;
+                            }
+                        };
+
+                        options.Authority = Configuration.GetSection("Authentication:Authority").Value;
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateAudience = false
+                        };
+                    });
             #endregion
 
             #region Application
@@ -80,6 +116,8 @@ namespace Aio.Web
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

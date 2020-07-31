@@ -7,6 +7,7 @@ import { AppContainer } from '~/components/app/app-container';
 import { store } from '~/state/store';
 import { Provider } from 'react-redux';
 import { LoadingBarContainer } from './components/loading/loading-bar-container';
+import Oidc from 'oidc-client';
 
 render(
     <React.StrictMode>

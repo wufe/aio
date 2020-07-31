@@ -11,6 +11,8 @@
         line-height: 80px;
         padding: 0 2em;
         margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
 
         > h1 {
             font-family: inherit;
@@ -31,6 +33,10 @@
                 -moz-user-select: none;
                 -webkit-user-select: none;
             }
+        }
+
+        > .__actions-container {
+            
         }
     }
 
