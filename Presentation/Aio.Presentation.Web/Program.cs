@@ -21,7 +21,7 @@ namespace Aio.Web
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
-                        .UseUrls("http://0.0.0.0:9990")
+                        .UseUrls("http://localhost:9990")
                         .UseStartup<Startup>();
                 });
     }
