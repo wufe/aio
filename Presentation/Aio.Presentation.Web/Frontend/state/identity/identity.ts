@@ -19,7 +19,8 @@ export class Identity {
     public manager: Oidc.UserManager;
 
     private constructor() {
-        console.log(this.config)
+        if (process.env.NODE_ENV === 'development')
+            Oidc.Log.logger = console;
         const manager = new Oidc.UserManager(this.config);
         this.manager = manager;
     }

@@ -59,18 +59,11 @@ export const App = () => {
     }, [identity.logged, identity.token])
     
     React.useEffect(() => {
-        Identity.Instance.manager.events.addAccessTokenExpired(console.log);
-        Identity.Instance.manager.events.addSilentRenewError(console.log);
-        Oidc.Log.logger = console
         Identity.Instance.manager.getUser().then(function (user) {
             if (user) {
-                console.log("User logged in", user);
-                // Identity.Instance.manager.querySessionStatus()
-                //     .then(console.log);
                 dispatch({ type: AppAction.SET_LOGGED, payload: true });
                 dispatch({ type: AppAction.SET_ACCESS_TOKEN, payload: user.access_token });
             } else {
-                console.log("User not logged in");
                 dispatch({ type: AppAction.SET_LOGGED, payload: false });
             }
         });
