@@ -19,6 +19,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 
 namespace Aio.Web
 {
@@ -53,12 +54,13 @@ namespace Aio.Web
                         {
                             OnAuthenticationFailed = context =>
                             {
-                                Console.WriteLine(context.Exception.Message);
+                                Log.Error(context.Exception, "Error while authenticating.");
                                 //Log failed authentications
                                 return Task.CompletedTask;
                             },
                             OnTokenValidated = context =>
                             {
+                                // Log.Information("Authentication successful.");
                                 //Log successful authentications
                                 return Task.CompletedTask;
                             }

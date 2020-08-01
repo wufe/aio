@@ -19,6 +19,7 @@ export class Identity {
     public manager: Oidc.UserManager;
 
     private constructor() {
+        console.log(this.config)
         const manager = new Oidc.UserManager(this.config);
         this.manager = manager;
     }

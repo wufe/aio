@@ -9,6 +9,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
 using Stateless;
 
 namespace Aio.Presentation.Web.HostedServices {
@@ -71,7 +72,7 @@ namespace Aio.Presentation.Web.HostedServices {
             _stateMachine.OnTransitioned((transition) => {
                 using (var scope = serviceProvider.CreateScope()) {
                     var logger = scope.ServiceProvider.GetRequiredService<ILogger<BuildRunnerStateMachine>>();
-                    logger.LogTrace($"{transition.Trigger}: {transition.Source} -> {transition.Destination}");
+                    logger.LogDebug($"{transition.Trigger}: {transition.Source} -> {transition.Destination}");
                 }
             });
 
@@ -243,38 +244,43 @@ namespace Aio.Presentation.Web.HostedServices {
         public async Task<int> Start() {
             var exitCode = -1;
             await Task.Run(() => {
-                var processInfo = new ProcessStartInfo()
-                {
-                    UseShellExecute = false,
-                    FileName = StepContainer.Step.CommandExecutable,
-                    Arguments = GetArguments(),
-                    WorkingDirectory = StepContainer.Step.WorkingDirectory,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true
-                };
-                foreach (var envVariable in StepContainer.Step.EnvironmentVariables)
-                    processInfo.EnvironmentVariables[envVariable.Split('=')[0]] = envVariable.Split('=')[1];
-                    
-                var process = Process.Start(processInfo);
+                try {
+                    var processInfo = new ProcessStartInfo()
+                    {
+                        UseShellExecute = false,
+                        FileName = StepContainer.Step.CommandExecutable,
+                        Arguments = GetArguments(),
+                        WorkingDirectory = StepContainer.Step.WorkingDirectory,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true
+                    };
+                    foreach (var envVariable in StepContainer.Step.EnvironmentVariables)
+                        processInfo.EnvironmentVariables[envVariable.Split('=')[0]] = envVariable.Split('=')[1];
 
-                if (!StepContainer.Step.FireAndForget) {
-                    process.BeginOutputReadLine();
-                    process.BeginErrorReadLine();
-                    process.OutputDataReceived += (sender, e) =>
+                    var process = Process.Start(processInfo);
+
+                    if (!StepContainer.Step.FireAndForget)
                     {
-                        if (!String.IsNullOrEmpty(e.Data))
-                            OnLog(e.Data, CommandLogType.Stdout);
-                    };
-                    process.ErrorDataReceived += (sender, e) =>
-                    {
-                        if (!String.IsNullOrEmpty(e.Data))
-                            OnLog(e.Data, CommandLogType.Stderr);
-                    };
-                    process.WaitForExit();
-                    exitCode = process.ExitCode;
-                    process.Close();
+                        process.BeginOutputReadLine();
+                        process.BeginErrorReadLine();
+                        process.OutputDataReceived += (sender, e) =>
+                        {
+                            if (!String.IsNullOrEmpty(e.Data))
+                                OnLog(e.Data, CommandLogType.Stdout);
+                        };
+                        process.ErrorDataReceived += (sender, e) =>
+                        {
+                            if (!String.IsNullOrEmpty(e.Data))
+                                OnLog(e.Data, CommandLogType.Stderr);
+                        };
+                        process.WaitForExit();
+                        exitCode = process.ExitCode;
+                        process.Close();
+                    }
+                } catch (Exception e) {
+                    Log.Error(e, $"Error while executing step \"{StepContainer.Step.Name}\".");
+                    exitCode = 1;
                 }
-                
             });
             return exitCode;
         }
