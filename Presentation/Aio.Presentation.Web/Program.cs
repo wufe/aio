@@ -24,10 +24,10 @@ namespace Aio.Web
                 .MinimumLevel.Override("System", LogEventLevel.Warning)
                 .MinimumLevel.Override("Microsoft.AspNetCore.Authentication", LogEventLevel.Information)
                 .MinimumLevel.Override("Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler", LogEventLevel.Warning)
-                .MinimumLevel.Override("Aio.Presentation.Web.HostedServices", LogEventLevel.Debug)
+                .MinimumLevel.Override("Aio.Presentation.Web.HostedServices", LogEventLevel.Warning)
                 .Enrich.FromLogContext()
                 .WriteTo.File(
-                    "./logs/identityserver.txt",
+                    "./logs/aio.txt",
                     fileSizeLimitBytes: 1_000_000,
                     rollOnFileSizeLimit: true,
                     shared: true,
