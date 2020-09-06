@@ -8,7 +8,7 @@ export class Identity {
 
     private config = {
         authority: process.env.NODE_ENV === 'development' ?
-            "http://localhost:9999" : "https://ido.bembi.dev",
+            "https://localhost:9999" : "https://ido.bembi.dev",
         client_id: "aio",
         redirect_uri: location.origin + "/login-callback",
         response_type: "code",
