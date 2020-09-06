@@ -60,6 +60,7 @@ export const App = () => {
     
     React.useEffect(() => {
         Identity.Instance.manager.getUser().then(function (user) {
+            console.log(user);
             if (user) {
                 dispatch({ type: AppAction.SET_LOGGED, payload: true });
                 dispatch({ type: AppAction.SET_ACCESS_TOKEN, payload: user.access_token });

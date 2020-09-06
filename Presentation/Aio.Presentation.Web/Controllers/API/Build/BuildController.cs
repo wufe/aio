@@ -38,6 +38,7 @@ namespace Aio.Presentation.Web.Controllers.API.Build {
 
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Get(string id) {
             var build = await _mediator.Send(new GetBuildQuery(id));
             if (build == null)
@@ -46,6 +47,7 @@ namespace Aio.Presentation.Web.Controllers.API.Build {
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateBuild(CreateBuildInputModel buildInputModel)
         {
             if (TryValidateModel(buildInputModel)) {
@@ -61,6 +63,7 @@ namespace Aio.Presentation.Web.Controllers.API.Build {
         }
 
         [HttpPatch("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateBuild(string id, [FromBody]UpdateBuildInputModel inputModel) {
 
             if (TryValidateModel(inputModel)) {
@@ -76,6 +79,7 @@ namespace Aio.Presentation.Web.Controllers.API.Build {
         }
 
         [HttpPost("order")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateBuildsOrder([FromBody] UpdateBuildsOrderInputModel inputModel) {
             if (!TryValidateModel(inputModel))
                 return BadRequest(ModelState);
@@ -85,6 +89,7 @@ namespace Aio.Presentation.Web.Controllers.API.Build {
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteBuild(string id) {
             try {
                 await _mediator.Send(new DeleteBuildCommand(id));
@@ -95,6 +100,7 @@ namespace Aio.Presentation.Web.Controllers.API.Build {
         }
 
         [HttpPost("{buildID}/step")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateStep(string buildID, [FromBody] CreateStepInputModel inputModel) {
             if (TryValidateModel(inputModel)) {
                 try {
@@ -109,6 +115,7 @@ namespace Aio.Presentation.Web.Controllers.API.Build {
         }
 
         [HttpPatch("{buildID}/step/{stepIndex}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateStep(string buildID, int stepIndex, [FromBody] UpdateStepInputModel inputModel) {
             if (TryValidateModel(inputModel)) {
                 try {
@@ -123,6 +130,7 @@ namespace Aio.Presentation.Web.Controllers.API.Build {
         }
 
         [HttpPost("{buildID}/step/order")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateStepsOrder(string buildID, [FromBody] UpdateStepsOrderInputModel inputModel) {
             if (!TryValidateModel(inputModel))
                 return BadRequest(ModelState);
@@ -132,6 +140,7 @@ namespace Aio.Presentation.Web.Controllers.API.Build {
         }
 
         [HttpDelete("{buildID}/step/{stepIndex}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteStep(string buildID, int stepIndex)
         {
             try
@@ -152,6 +161,7 @@ namespace Aio.Presentation.Web.Controllers.API.Build {
         }
 
         [HttpPost("{buildID}/run")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EnqueueRun(string buildID) {
             await _mediator.Send(new EnqueueRunCommand(buildID));
             return Ok();

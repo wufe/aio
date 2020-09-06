@@ -1,4 +1,4 @@
-import Oidc from "oidc-client";
+import Oidc, { UserManagerSettings } from "oidc-client";
 
 declare let process: any;
 
@@ -6,14 +6,14 @@ export class Identity {
 
     private static _instance: Identity;
 
-    private config = {
+    private config: UserManagerSettings = {
         authority: process.env.NODE_ENV === 'development' ?
             "https://localhost:9999" : "https://ido.bembi.dev",
         client_id: "aio",
         redirect_uri: location.origin + "/login-callback",
         response_type: "code",
-        scope: "openid profile",
-        post_logout_redirect_uri: location.origin,
+        scope: "openid profile role",
+        post_logout_redirect_uri: location.origin
     };
 
     public manager: Oidc.UserManager;

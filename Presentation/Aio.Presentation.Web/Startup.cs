@@ -7,12 +7,15 @@ using Aio.Application.Model.Queries;
 using Aio.Application.Service.Handlers.Queries;
 using Aio.Domain.Configuration.DI;
 using Aio.Persistence.Configuration.DI;
+using Aio.Presentation.Web;
 using Aio.Presentation.Web.Configuration.DI;
 using Aio.Presentation.Web.HostedServices;
 using Aio.Web.Configuration;
 using Aio.Web.Middleware;
+using IdentityModel;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -71,7 +74,9 @@ namespace Aio.Web
                         {
                             ValidateAudience = false
                         };
-                    });
+                    })
+                .AddCookie("Cookies");
+            services.AddAuthorization(opts => opts.AddPolicy("Admin", policy => policy.Requirements.Add(new AdminPolicyRequirement())));
             #endregion
 
             #region Application
