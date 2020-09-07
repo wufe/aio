@@ -1,16 +1,22 @@
 import { useDispatch, useSelector } from "react-redux"
 import { AppAction } from "~/state/app/app-state";
-import Axios from "axios";
+import Axios, { AxiosError } from "axios";
 import { BuildAction } from "~/state/build/build-state";
 import { getUndefinedBuild, TStep, TBuild } from "~/types";
 import { useHistory } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { TGlobalState } from "~/state/reducer";
 import { Identity } from "~/state/identity/identity";
+import { useModal } from "~/components/modal/modal-hooks";
+import { App } from "~/components/app/app";
+
+const errorIsAxiosError = (error: Error): error is AxiosError =>
+    'isAxiosError' in error;
 
 export const useBuildAPI = () => {
     const dispatch = useDispatch();
     const token = useSelector<TGlobalState, string>(x => x.app.identity.token);
+    const { show } = useModal();
 
     const getRequestConfigByToken = () => ({
         headers: {
@@ -19,6 +25,19 @@ export const useBuildAPI = () => {
     });
 
     const onException = (error: Error) => {
+
+        if (errorIsAxiosError(error)) {
+            const {
+                response: {
+                    status
+                } = {}
+            } = error;
+
+            if (status === 403) {
+                show(App.FORBIDDEN_MODAL_NAME);
+            }
+        }
+
         console.error({ error });
         // return Identity.Instance.manager.signinPopup();
         throw error;
@@ -44,7 +63,11 @@ export const useBuildAPI = () => {
             .then(() => dispatch({ type: AppAction.SET_LOADING, payload: true }))
             .then(() => Axios.get(`/api/build/${buildID}`, getRequestConfigByToken()))
             .then(response => dispatch({ type: BuildAction.SET_CURRENT_BUILD, payload: response.data }))
-            .catch(() => dispatch({ type: BuildAction.SET_CURRENT_BUILD, payload: getUndefinedBuild(buildID) }))
+            .catch(onException)
+            .catch(error => {
+                dispatch({ type: BuildAction.SET_CURRENT_BUILD, payload: getUndefinedBuild(buildID) });
+                throw error;
+            })
             .finally(() => dispatch({ type: AppAction.SET_LOADING, payload: false }));
 
     const update = (buildID: string, build: TBuild) =>
@@ -63,6 +86,7 @@ export const useBuildAPI = () => {
         Promise.resolve()
             .then(() => dispatch({ type: AppAction.SET_LOADING, payload: true }))
             .then(() => Axios.delete(`/api/build/${buildID}`, getRequestConfigByToken()))
+            .catch(onException)
             .finally(() => dispatch({ type: AppAction.SET_LOADING, payload: false }));
 
     const addStep = (buildID: string, name: string) =>
@@ -75,6 +99,7 @@ export const useBuildAPI = () => {
         Promise.resolve()
             .then(() => dispatch({ type: AppAction.SET_LOADING, payload: true }))
             .then(() => Axios.delete(`/api/build/${buildID}/step/${stepIndex}`, getRequestConfigByToken()))
+            .catch(onException)
             .finally(() => dispatch({ type: AppAction.SET_LOADING, payload: false }));
 
     const updateStep = (buildID: string, stepIndex: number, step: TStep) =>
@@ -100,6 +125,7 @@ export const useBuildAPI = () => {
         Promise.resolve()
             .then(() => dispatch({ type: AppAction.SET_LOADING, payload: true }))
             .then(() => Axios.post(`/api/build/${buildID}/run`, {}, getRequestConfigByToken()))
+            .catch(onException)
             .finally(() => dispatch({ type: AppAction.SET_LOADING, payload: false }));
 
     return {
@@ -114,12 +140,13 @@ export const useBuildAPI = () => {
         updateStepsOrder,
         getLatestRun,
         enqueueNewRun,
-        save
+        save,
+        onException
     };
 }
 
 export const useBuildPageLoad = () => {
-    const { get } = useBuildAPI();
+    const { get, onException } = useBuildAPI();
     const { push } = useHistory();
 
     return {

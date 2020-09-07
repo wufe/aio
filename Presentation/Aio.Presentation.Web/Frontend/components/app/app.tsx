@@ -11,10 +11,16 @@ import { TIdentity, AppAction } from '~/state/app/app-state';
 import { Identity } from '~/state/identity/identity';
 import { GuardedRoute } from '../pages/build/guarded-route/guarded-route';
 import Oidc from 'oidc-client';
+import { GenericModalLayout } from '../modal/modal-layout/textual-modal-layout/generic-modal-layout';
+import { Modal } from '../modal/modal';
+import { useModal } from '../modal/modal-hooks';
+
+const ForbiddenModalName = '@@forbiddenModal@@';
 
 export const App = () => {
 
     const { getAll } = useBuildAPI();
+    const { hide } = useModal();
     const [isAuthenticated, setIsAuthenticated] = React.useState<boolean>(false);
 
     const { go } = useDashboardPageLoad();
@@ -80,6 +86,13 @@ export const App = () => {
                 </>}
             </div>
         </div>
+        <Modal name={ForbiddenModalName}>
+            <GenericModalLayout title="Forbidden action" actionsRenderer={() => <>
+                <button type="button" className="neui-button __action" onClick={hide}>Nevermind</button>
+            </>}>
+                Forbidden.
+            </GenericModalLayout>
+        </Modal>
         <Route exact path="/">
             <DashboardPage />
         </Route>
@@ -91,3 +104,5 @@ export const App = () => {
         </Route>
     </div>;
 };
+
+App.FORBIDDEN_MODAL_NAME = ForbiddenModalName;
