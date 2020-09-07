@@ -25,8 +25,8 @@ export const BuildSummary = React.memo((props: React.PropsWithChildren<TProps>) 
     const { getLatestRun, enqueueNewRun } = useBuildAPI();
     const { hide, show } = useModal();
 
-    const enqueueNewRunModal = '@@enqueueNewRunModal@@';
-    const deleteBuildModal = '@@deleteBuildModal@@';
+    const enqueueNewRunModal = `@@enqueueNewRun${props.build.id}Modal@@`;
+    const deleteBuildModal = `@@deleteBuild${props.build.id}Modal@@`;
     
     usePolling(
         () => getLatestRun(props.build.id).then(run => setRun(run)),
@@ -68,6 +68,7 @@ export const BuildSummary = React.memo((props: React.PropsWithChildren<TProps>) 
                 <button type="button" className="neui-button __action" onClick={hide}>Nevermind</button>
                 <button type="button" className="neui-button __action --danger" onClick={onDeleteConfirm}>Yea, do it</button>
             </>}>
+                You are goint to delete build "{props.build.name}".<br />
                 You sure? Delete? Really?
             </GenericModalLayout>
             
