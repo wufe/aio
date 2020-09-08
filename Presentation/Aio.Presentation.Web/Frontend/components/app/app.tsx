@@ -14,6 +14,7 @@ import Oidc from 'oidc-client';
 import { GenericModalLayout } from '../modal/modal-layout/textual-modal-layout/generic-modal-layout';
 import { Modal } from '../modal/modal';
 import { useModal } from '../modal/modal-hooks';
+import { LogoutCallbackPage } from '../pages/logout-callback/logout-callback';
 
 const ForbiddenModalName = '@@forbiddenModal@@';
 
@@ -49,7 +50,7 @@ export const App = () => {
     const logout = () =>
         Promise.resolve()
             .then(() => dispatch({ type: AppAction.SET_LOADING, payload: true }))
-            .then(() => Identity.Instance.manager.signoutRedirect())
+            .then(() => Identity.Instance.manager.signoutPopup())
             .then(() => location.href = '/')
             .finally(() => dispatch({ type: AppAction.SET_LOADING, payload: false }));
 
@@ -101,6 +102,9 @@ export const App = () => {
         </Route>
         <Route path="/login-callback">
             <LoginCallbackPage />
+        </Route>
+        <Route path="/logout-callback">
+            <LogoutCallbackPage />
         </Route>
     </div>;
 };

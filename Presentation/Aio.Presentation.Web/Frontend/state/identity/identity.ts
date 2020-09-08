@@ -13,7 +13,7 @@ export class Identity {
         redirect_uri: location.origin + "/login-callback",
         response_type: "code",
         scope: "openid profile role",
-        post_logout_redirect_uri: location.origin
+        post_logout_redirect_uri: location.origin + "/logout-callback"
     };
 
     public manager: Oidc.UserManager;
