@@ -7,9 +7,9 @@ type TProps = {
     [k: string]: any;
 };
 
-export const GuardedRoute = ({ component: Component, authorized, ...rest }: React.PropsWithChildren<TProps>) => (
-    <Route {...rest} render={(props) => (
+export const GuardedRoute = ({ component: Component, authorized, ...rest }: React.PropsWithChildren<TProps>) => {
+    return <Route {...rest} render={(props) => (
         authorized ? <Component {...props} />
             : <Redirect to='/' />
-    )} />
-)
+    )} />;
+}

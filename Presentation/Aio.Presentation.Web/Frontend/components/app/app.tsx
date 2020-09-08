@@ -1,6 +1,6 @@
 import * as React from 'react';
 import loadable from '@loadable/component';
-import { Route } from 'react-router-dom';
+import { Route, useHistory } from 'react-router-dom';
 import './app.scss';
 import { Build } from '../pages/build/build';
 import { useDashboardPageLoad } from '../pages/dashboard/dashboard-hook';
@@ -22,7 +22,7 @@ export const App = () => {
 
     const { getAll } = useBuildAPI();
     const { hide } = useModal();
-    const [isAuthenticated, setIsAuthenticated] = React.useState<boolean>(false);
+    const { push } = useHistory();
 
     const { go } = useDashboardPageLoad();
     const DashboardPage = loadable(() => import('~/components/pages/dashboard/dashboard'));
@@ -60,14 +60,11 @@ export const App = () => {
 
         if (authenticated)
             getAll();
-
-        setIsAuthenticated(authenticated);
         
     }, [identity.logged, identity.token])
     
     React.useEffect(() => {
         Identity.Instance.manager.getUser().then(function (user) {
-            console.log(user);
             if (user) {
                 dispatch({ type: AppAction.SET_LOGGED, payload: true });
                 dispatch({ type: AppAction.SET_ACCESS_TOKEN, payload: user.access_token });
@@ -76,6 +73,11 @@ export const App = () => {
             }
         });
     }, []);
+
+    const onForbiddenConfirmationClick = () => {
+        hide();
+        push('/');
+    }
 
     return <div className="app__component">
         <div className="__header">
@@ -89,23 +91,28 @@ export const App = () => {
         </div>
         <Modal name={ForbiddenModalName}>
             <GenericModalLayout title="Forbidden action" actionsRenderer={() => <>
-                <button type="button" className="neui-button __action" onClick={hide}>Nevermind</button>
+                <button type="button" className="neui-button __action" onClick={onForbiddenConfirmationClick}>Nevermind</button>
             </>}>
                 Forbidden.
             </GenericModalLayout>
         </Modal>
-        <Route exact path="/">
-            <DashboardPage />
-        </Route>
-        <Route path="/build/:id">
-            <GuardedRoute component={BuildPage} authorized={isAuthenticated} />
-        </Route>
-        <Route path="/login-callback">
-            <LoginCallbackPage />
-        </Route>
-        <Route path="/logout-callback">
-            <LogoutCallbackPage />
-        </Route>
+        {
+            identity.logged !== undefined && <>
+                <Route exact path="/">
+                    <DashboardPage />
+                </Route>
+                <Route path="/build/:id">
+                    <GuardedRoute component={BuildPage} authorized={identity.logged} />
+                </Route>
+                <Route path="/login-callback">
+                    <LoginCallbackPage />
+                </Route>
+                <Route path="/logout-callback">
+                    <LogoutCallbackPage />
+                </Route>
+            </>
+        }
+
     </div>;
 };
 

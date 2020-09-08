@@ -60,6 +60,19 @@ export const BuildInfo = (props: React.PropsWithChildren<TProps>) => {
                 </label>
             </div>
         </div>
+        {/* <div className="__section">{'Working on webhooks'}
+            <div className="__header">Webhook</div>
+            <div className="__content">
+                <label className="--grid">
+                    <span>Enable</span>
+                    <input type="checkbox" className="neui-element-flat" />
+                </label>
+                <label className="--grid">
+                    <span>ID</span>
+                    <span>5f55d08f8f88fab10c33e716</span>
+                </label>
+            </div>
+        </div> */}
         {/* <div className="__section">
             <div className="__header">Repository</div>
             <div className="__content">
