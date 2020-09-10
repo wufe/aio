@@ -21,8 +21,10 @@
         @include pressed($primary-color);
         border-radius: 9px;
         max-height: 700px;
-        overflow: auto;
+        // overflow: auto;
         transition: max-height ease-out .2s;
+        display: flex;
+        flex-direction: column;
     }
 
     

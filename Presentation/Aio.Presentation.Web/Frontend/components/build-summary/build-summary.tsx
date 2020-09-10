@@ -68,7 +68,7 @@ export const BuildSummary = React.memo((props: React.PropsWithChildren<TProps>) 
                 <button type="button" className="neui-button __action" onClick={hide}>Nevermind</button>
                 <button type="button" className="neui-button __action --danger" onClick={onDeleteConfirm}>Yea, do it</button>
             </>}>
-                You are goint to delete build "{props.build.name}".<br />
+                You are going to delete build "{props.build.name}".<br />
                 You sure? Delete? Really?
             </GenericModalLayout>
             
@@ -100,7 +100,7 @@ export const BuildSummary = React.memo((props: React.PropsWithChildren<TProps>) 
         </div>
         <div className="__content">
             <div className="__row">
-                <div className="__column">
+                <div className="__column --baseline">
                     {props.build.steps.length > 0 && <>
                         <div className="__column-header">Steps</div>
                         <div className="__column-content">
@@ -117,7 +117,9 @@ export const BuildSummary = React.memo((props: React.PropsWithChildren<TProps>) 
                     {run && run.logs.length > 0 && <>
                         <div className="__column-header">Log</div>
                         <div className="__column-content">
-                            <BuildTerminalLog logs={run.logs} />
+                            <div className="__column-overflow-container">
+                                <BuildTerminalLog logs={run.logs} />
+                            </div>
                         </div>
                     </>}
                 </div>

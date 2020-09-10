@@ -4,6 +4,8 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    flex: 1;
+    min-height: 0;
 
     .__row {
         width: 100%;
@@ -133,26 +135,32 @@
 
     > .__content {
         padding: 0px 20px;
-        flex-grow: 1;
+        flex: 1;
+        min-height: 0;
         margin: 10px 0 10px 0;
+        display: flex;
+        flex-direction: column;
 
         > .__row {
             grid-template-columns: 1fr;
             grid-template-rows: auto;
-            height: 100%;
+            // height: 100%;
+            flex: 1;
+            min-height: 0;
 
             @include large-up {
                 // grid-template-columns: 2fr 1fr 5fr;
                 display: flex;
-
             }
 
             > .__column {
-                max-height: 100%;
-                height: 100%;
                 display: flex;
                 flex-direction: column;
                 padding: 10px;
+
+                &.--baseline {
+                    align-self: flex-start;
+                }
 
                 &:first-child {
                     width: 100% / 6 * 2;
@@ -163,23 +171,30 @@
                 }
 
                 > .__column-header {
-                    flex-grow: 0;
+                    // flex-grow: 0;
                 }
 
                 > .__column-content {
-                    flex-grow: 1;
+                    display: flex;
+                    flex: 1;
+                    min-height: 0;
                     margin: 10px 0;
+
+                    > .__column-overflow-container {
+                        flex: 1;
+                        overflow: auto;
+                    }
                 }
             }
         }
 
         .__terminal-log {
-            height: 100%;
+            
+            // height: 100%;
             width: 100%;
             @include neumorphistic-element($terminal-background-color, $shape: 'pressed', $border-radius: .3em);
             padding: 10px;
-            max-height: 300px;
-            overflow: auto;
+            // max-height: 300px;
         }
 
         .__steps-container {
