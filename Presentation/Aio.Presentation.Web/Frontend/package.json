@@ -14,6 +14,7 @@
     "@types/react-router-dom": "^5.1.5",
     "@wufe/neui": "^1.1.2",
     "cross-spawn": "^7.0.3",
+    "cross-spawn-with-kill": "^1.0.0",
     "deep-diff": "^1.0.2",
     "nord": "^0.2.1",
     "parcel": "1.12.4",

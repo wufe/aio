@@ -13,11 +13,12 @@ namespace Aio.Web.Middleware
             services.AddHostedService<ChildProcessHandlerHostedService>();
         }
 
-        public static void UseYarn(this ISpaBuilder spaBuilder, string directory, string script = "dev") {
+        public static void UseYarn(this ISpaBuilder spaBuilder, string directory, string command = "dev") {
+            var pid = Process.GetCurrentProcess().Id;
             var processInfo = new ProcessStartInfo() {
                 UseShellExecute = false,
                 FileName = "node",
-                Arguments = $"config/phandler.js yarn {script}",
+                Arguments = $"config/phandler.js {pid} yarn {command}",
                 WorkingDirectory = directory
             };
             var process = Process.Start(processInfo);
