@@ -9,10 +9,10 @@ export class Identity {
     private config: UserManagerSettings = {
         authority: process.env.NODE_ENV === 'development' ?
             "https://localhost:9999" : "https://ido.bembi.dev",
-        client_id: "aio",
+        client_id: "aio.spa",
         redirect_uri: location.origin + "/login-callback",
-        response_type: "code",
-        scope: "openid profile role",
+        response_type: "id_token token",
+        scope: "openid profile role aio.api.read aio.api.write",
         post_logout_redirect_uri: location.origin + "/logout-callback"
     };
 

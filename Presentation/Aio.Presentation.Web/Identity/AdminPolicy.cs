@@ -2,6 +2,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using IdentityModel;
 using Microsoft.AspNetCore.Authorization;
+using Serilog;
 
 namespace Aio.Presentation.Web {
     public class AdminPolicyRequirement : AuthorizationHandler<AdminPolicyRequirement>, IAuthorizationRequirement

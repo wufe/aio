@@ -70,13 +70,20 @@ namespace Aio.Web
                         };
 
                         options.Authority = Configuration.GetSection("Authentication:Authority").Value;
+                        options.Audience = "aio";
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
                             ValidateAudience = false
                         };
                     })
                 .AddCookie("Cookies");
-            services.AddAuthorization(opts => opts.AddPolicy("Admin", policy => policy.Requirements.Add(new AdminPolicyRequirement())));
+
+            services.AddAuthorization(opts => {
+                opts.AddPolicy("Admin", policy => policy.Requirements.Add(new AdminPolicyRequirement()));
+                // opts.AddPolicy("Worker", policy => {
+                //     policy.Require
+                // });
+            });
             #endregion
 
             #region Application
