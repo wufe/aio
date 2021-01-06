@@ -30,7 +30,7 @@
     "build": "parcel build -t browser -d dist --no-cache index.html"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "components": "^0.1.0",
     "core-js": "^3.6.5",
     "fkill": "^7.0.1",
